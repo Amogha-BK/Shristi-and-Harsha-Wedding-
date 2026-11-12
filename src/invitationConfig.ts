@@ -25,7 +25,7 @@ export const invitationConfig = {
     firstParents: "",
     secondParents: "",
   },
-  weddingLabel: "29–30 November 2026 · Indore",
+  weddingLabel: "30 November 2026 · Indore",
   invitationLine: "Together with our families, we invite you to celebrate our wedding.",
   monogram: "/assets/amit-ankita-logo",
   introMedallion: "/assets/amit-ankita-medallion.png",

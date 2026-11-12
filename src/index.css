@@ -625,7 +625,7 @@ textarea:focus-visible {
   min-height: 100svh;
   display: grid;
   place-items: center;
-  padding: 6rem 1.2rem 11rem;
+  padding: 6.5rem 1rem 8.5rem;
   overflow: hidden;
   isolation: isolate;
   background:
@@ -636,14 +636,16 @@ textarea:focus-visible {
   position: relative;
   z-index: 3;
   display: flex;
+  width: 100%;
+  max-width: 960px;
   flex-direction: column;
   align-items: center;
   text-align: center;
 }
 .hero-monogram {
-  width: 80px;
-  height: 94px;
-  margin-bottom: 1.4rem;
+  width: clamp(118px, 31vw, 172px);
+  height: clamp(130px, 34vw, 188px);
+  margin-bottom: 1.25rem;
 }
 .eyebrow,
 .section-heading > span {
@@ -654,29 +656,34 @@ textarea:focus-visible {
   text-transform: uppercase;
 }
 .hero h1 {
-  margin: 0.5rem 0 0;
+  margin: 0.7rem 0 0;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: center;
+  gap: clamp(0.35rem, 2vw, 1rem);
+  width: 100%;
   color: var(--taupe);
-  font-size: clamp(4.15rem, 21vw, 7.8rem);
+  font-size: clamp(2.85rem, 13.4vw, 7.8rem);
   font-weight: 400;
-  line-height: 0.75;
+  line-height: 0.9;
   letter-spacing: -0.045em;
+  white-space: nowrap;
 }
 .hero h1 span {
-  margin: 0.55rem 0 0.25rem;
+  margin: 0;
   color: var(--gold);
   font-family: "Allura", cursive;
-  font-size: 0.54em;
+  font-size: 0.5em;
   line-height: 0.8;
 }
 .hero-date {
-  margin-top: 2rem;
+  margin-top: 2.2rem;
   padding: 0.75rem 1.25rem;
   border-top: 1px solid var(--gold-light);
   border-bottom: 1px solid var(--gold-light);
   font-family: "Cormorant Garamond", serif;
-  font-size: 1.05rem;
+  font-size: clamp(0.88rem, 3.8vw, 1.15rem);
   letter-spacing: 0.1em;
 }
 .parent-lines {
@@ -1339,15 +1346,6 @@ footer p {
   }
   .rsvp-form {
     padding: 2.5rem;
-  }
-  .hero h1 {
-    flex-direction: row;
-    align-items: baseline;
-    gap: 1rem;
-    line-height: 1;
-  }
-  .hero h1 span {
-    margin: 0;
   }
 }
 @media (min-width: 800px) {

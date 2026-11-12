@@ -3,7 +3,6 @@ import * as Dialog from "@radix-ui/react-dialog";
 import {
   CalendarDays,
   Check,
-  ChevronDown,
   Clipboard,
   MapPin,
   Menu,
@@ -748,10 +747,6 @@ export default function App() {
               </div>
             )}
             <div className="hero-date">{config.weddingLabel}</div>
-            <a className="scroll-cue focus-ring" href="#invitation">
-              <span>Enter our celebrations</span>
-              <ChevronDown />
-            </a>
           </motion.div>
           <div className="hero-palace">
             <Palace />

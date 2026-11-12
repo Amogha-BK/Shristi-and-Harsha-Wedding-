@@ -48,10 +48,13 @@ function MusicControl({ canPlay }: { canPlay: boolean }) {
     player.volume = 0.35;
 
     const removeListeners = () => {
-      document.removeEventListener("click", startOnInteraction);
-      document.removeEventListener("keydown", startOnInteraction);
+      document.removeEventListener("pointerdown", startOnInteraction, true);
+      document.removeEventListener("touchend", startOnInteraction, true);
+      document.removeEventListener("keydown", startOnInteraction, true);
+      window.removeEventListener("pageshow", tryAutoplay);
     };
     const tryAutoplay = () => {
+      if (disposed || userControlled.current) return;
       void player.play().then(() => {
         if (!disposed) removeListeners();
       }).catch(() => {
@@ -67,8 +70,10 @@ function MusicControl({ canPlay }: { canPlay: boolean }) {
       tryAutoplay();
     };
 
-    document.addEventListener("click", startOnInteraction);
-    document.addEventListener("keydown", startOnInteraction);
+    document.addEventListener("pointerdown", startOnInteraction, true);
+    document.addEventListener("touchend", startOnInteraction, true);
+    document.addEventListener("keydown", startOnInteraction, true);
+    window.addEventListener("pageshow", tryAutoplay);
     tryAutoplay();
     return () => {
       disposed = true;
@@ -98,6 +103,7 @@ function MusicControl({ canPlay }: { canPlay: boolean }) {
         <audio
           ref={audio}
           src={config.optional.musicUrl}
+          autoPlay
           preload="auto"
           loop
           onPlay={() => setPlaying(true)}
@@ -301,7 +307,7 @@ function EventCard({ event, index }: { event: Celebration; index: number }) {
         </div>
         <div className="event-actions">
           <a
-            className="button button-solid focus-ring"
+            className="button button-outline focus-ring"
             href={event.mapUrl}
             target="_blank"
             rel="noreferrer"
@@ -391,7 +397,7 @@ function RSVP() {
 
   const sendWhatsApp = () => {
     if (!config.optional.whatsappHostNumber) return;
-    const number = config.optional.whatsappHostNumber.replace(/\D/g, "");
+    const number = String(config.optional.whatsappHostNumber).replace(/\D/g, "");
     window.open(
       `https://wa.me/${number}?text=${encodeURIComponent(preview)}`,
       "_blank",
@@ -626,7 +632,7 @@ export default function App() {
         </section>
 
         <section className="venue-section" id="venue">
-          <div className="venue-arch">
+          <div className="venue-content">
             <SectionHeading eyebrow="Where we gather">The venue</SectionHeading>
             <MapPin className="venue-pin" />
             <h3>{config.venue.name}</h3>

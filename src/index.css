@@ -1080,7 +1080,7 @@ textarea:focus-visible {
 }
 .venue-section::before {
   z-index: -2;
-  background: url("/assets/jardin-venue.png") center / cover no-repeat;
+  background: url("/assets/palace-filler.png") center / cover no-repeat;
   opacity: 0.3;
 }
 .venue-section::after {
@@ -1460,7 +1460,7 @@ footer p {
 }
 @media (min-width: 1100px) {
   .events {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr;
     align-items: start;
   }
   .event-actions {
@@ -1488,4 +1488,17 @@ footer p {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* One continuous invitation, from the opening hero through the family sign-off. */
+.invitation {
+  width: min(100%, 760px);
+  margin-inline: auto;
+}
+.site-nav {
+  width: min(100%, 760px);
+  margin-inline: auto;
+}
+.event-actions .button {
+  width: 100%;
 }

@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import {
-  CalendarDays,
   Check,
   Clipboard,
   MapPin,
@@ -220,56 +219,6 @@ function Countdown() {
   );
 }
 
-function escapeICS(value: string) {
-  return value
-    .replace(/\\/g, "\\\\")
-    .replace(/\n/g, "\\n")
-    .replace(/,/g, "\\,")
-    .replace(/;/g, "\\;");
-}
-
-function downloadCalendar(event: Celebration) {
-  const description =
-    event.id === "wedding" ? `${event.timeLabel} ${event.supportingLine}` : event.supportingLine;
-  const ics = [
-    "BEGIN:VCALENDAR",
-    "VERSION:2.0",
-    "PRODID:-//Amit and Ankita//Wedding Invitation//EN",
-    "CALSCALE:GREGORIAN",
-    "METHOD:PUBLISH",
-    "BEGIN:VTIMEZONE",
-    "TZID:Asia/Kolkata",
-    "BEGIN:STANDARD",
-    "DTSTART:19700101T000000",
-    "TZOFFSETFROM:+0530",
-    "TZOFFSETTO:+0530",
-    "TZNAME:IST",
-    "END:STANDARD",
-    "END:VTIMEZONE",
-    "BEGIN:VEVENT",
-    `UID:${event.id}-amit-ankita-2026@invitation`,
-    `DTSTAMP:${new Date()
-      .toISOString()
-      .replace(/[-:]/g, "")
-      .replace(/\.\d{3}/, "")}`,
-    `DTSTART;TZID=${config.calendar.timezone}:${event.start}`,
-    `DTEND;TZID=${config.calendar.timezone}:${event.end}`,
-    `SUMMARY:${escapeICS(event.calendarTitle)}`,
-    `DESCRIPTION:${escapeICS(description)}`,
-    `LOCATION:${escapeICS(event.venue)}`,
-    `URL:${event.mapUrl}`,
-    "END:VEVENT",
-    "END:VCALENDAR",
-  ].join("\r\n");
-  const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
-  const url = URL.createObjectURL(blob);
-  const anchor = document.createElement("a");
-  anchor.href = url;
-  anchor.download = `amit-ankita-${event.id}.ics`;
-  anchor.click();
-  URL.revokeObjectURL(url);
-}
-
 function SectionHeading({ eyebrow, children }: { eyebrow?: string; children: React.ReactNode }) {
   return (
     <div className="section-heading">
@@ -314,13 +263,6 @@ function EventCard({ event, index }: { event: Celebration; index: number }) {
           >
             <MapPin /> Directions
           </a>
-          <button
-            className="button button-outline focus-ring"
-            type="button"
-            onClick={() => downloadCalendar(event)}
-          >
-            <CalendarDays /> Add to calendar
-          </button>
         </div>
       </div>
     </motion.article>

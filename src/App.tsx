@@ -14,7 +14,7 @@ import {
   VolumeX,
   X,
 } from "lucide-react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { Celebration, invitationConfig as config } from "./invitationConfig";
 
 const navItems = [
@@ -23,7 +23,6 @@ const navItems = [
   ["Venue", "venue"],
 ] as const;
 
-const INTRO_STORAGE_KEY = "amit-ankita-intro-v3";
 
 function Monogram({ className = "" }: { className?: string }) {
   return (
@@ -32,21 +31,6 @@ function Monogram({ className = "" }: { className?: string }) {
       src={config.monogram}
       alt="A and A monogram with a botanical sprig"
     />
-  );
-}
-
-function LotusOutline() {
-  return (
-    <svg className="lotus-outline" viewBox="0 0 260 220" fill="none" aria-hidden="true">
-      <g stroke="currentColor" strokeWidth="1.2">
-        <path d="M130 187C99 153 98 114 130 55c32 59 31 98 0 132Z" />
-        <path d="M125 190C74 171 52 139 53 79c49 35 69 70 72 111Z" />
-        <path d="M135 190c51-19 73-51 72-111-49 35-69 70-72 111Z" />
-        <path d="M119 193C63 194 29 173 12 122c55 13 87 36 107 71Z" />
-        <path d="M141 193c56 1 90-20 107-71-55 13-87 36-107 71Z" />
-        <path d="M62 194c43 17 89 17 136 0" />
-      </g>
-    </svg>
   );
 }
 
@@ -72,123 +56,6 @@ function Palace({ intro = false }: { intro?: boolean }) {
         <i />
       </div>
     </div>
-  );
-}
-
-function FloralArch() {
-  return (
-    <div className="opening-arch" aria-hidden="true">
-      <div className="arch-line" />
-      <div className="arch-foliage arch-left">⌇</div>
-      <div className="arch-foliage arch-right">⌇</div>
-      <div className="arch-flower flower-one" />
-      <div className="arch-flower flower-two" />
-      <div className="arch-flower flower-three" />
-      <div className="arch-flower flower-four" />
-    </div>
-  );
-}
-
-function Opening({
-  onComplete,
-  onInteraction,
-}: {
-  onComplete: () => void;
-  onInteraction: () => void;
-}) {
-  const reduceMotion = useReducedMotion();
-  const [started, setStarted] = useState(false);
-  const [videoFailed, setVideoFailed] = useState(false);
-  const timers = useRef<number[]>([]);
-  const hasVideo = Boolean(config.optional.openingVideoUrl) && !videoFailed;
-
-  const finish = () => {
-    timers.current.forEach(window.clearTimeout);
-    localStorage.setItem(INTRO_STORAGE_KEY, "true");
-    onComplete();
-  };
-
-  const begin = () => {
-    if (started) return;
-    setStarted(true);
-    onInteraction();
-    if (reduceMotion) {
-      timers.current.push(window.setTimeout(finish, 700));
-    } else if (!hasVideo) {
-      timers.current.push(window.setTimeout(finish, 6500));
-    }
-  };
-
-  useEffect(() => () => timers.current.forEach(window.clearTimeout), []);
-
-  return (
-    <motion.div
-      className={`opening ${started ? "opening-started" : ""}`}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.65 }}
-      role="dialog"
-      aria-modal="true"
-      aria-label="Open the wedding invitation"
-    >
-      <div className="opening-paper" />
-      {started && hasVideo ? (
-        <video
-          className="opening-video"
-          src={config.optional.openingVideoUrl}
-          playsInline
-          autoPlay
-          muted
-          onEnded={finish}
-          onError={() => {
-            setVideoFailed(true);
-            timers.current.push(window.setTimeout(finish, 6500));
-          }}
-        />
-      ) : (
-        <>
-          <div className="opening-halo" />
-          <div className="petals" aria-hidden="true">
-            {Array.from({ length: 12 }, (_, index) => (
-              <i key={index} style={{ "--petal": index } as React.CSSProperties} />
-            ))}
-          </div>
-          <div className="lotus-wrap">
-            <LotusOutline />
-          </div>
-          <div className="arch-wrap">
-            <FloralArch />
-          </div>
-          <div className="opening-palace">
-            <Palace intro />
-          </div>
-          <div className="opening-couple">
-            <small>The wedding celebrations of</small>
-            <strong>
-              <b>{config.couple.first}</b>
-              <em>&</em>
-              <b>{config.couple.second}</b>
-            </strong>
-          </div>
-          <button
-            className="opening-trigger focus-ring"
-            type="button"
-            onClick={begin}
-            aria-label="Tap to open our celebrations"
-          >
-            <span className="medallion intro-medallion">
-              <img src={config.introMedallion} alt="A and A botanical wedding monogram" />
-            </span>
-            <span>Tap the monogram</span>
-            <small>to open our celebrations</small>
-          </button>
-        </>
-      )}
-      {started && (
-        <button className="skip-intro focus-ring" type="button" onClick={finish}>
-          Skip Intro
-        </button>
-      )}
-    </motion.div>
   );
 }
 
@@ -246,7 +113,7 @@ function MusicControl({ canPlay }: { canPlay: boolean }) {
   );
 }
 
-function Navigation({ onReplay }: { onReplay: () => void }) {
+function Navigation() {
   const [open, setOpen] = useState(false);
   return (
     <nav className="site-nav" aria-label="Invitation navigation">
@@ -259,16 +126,6 @@ function Navigation({ onReplay }: { onReplay: () => void }) {
             {label}
           </a>
         ))}
-        <button
-          className="focus-ring replay-intro"
-          type="button"
-          onClick={() => {
-            setOpen(false);
-            onReplay();
-          }}
-        >
-          Replay Intro
-        </button>
       </div>
       <button
         className="nav-toggle focus-ring"
@@ -689,16 +546,6 @@ function RSVP() {
 }
 
 export default function App() {
-  const [opened, setOpened] = useState(() => localStorage.getItem(INTRO_STORAGE_KEY) === "true");
-  const [interacted, setInteracted] = useState(opened);
-
-  useEffect(() => {
-    document.body.style.overflow = opened ? "" : "hidden";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [opened]);
-
   const parentsPresent =
     Boolean(config.couple.firstParents) || Boolean(config.couple.secondParents);
   const optionalDetails = Object.entries({
@@ -709,29 +556,14 @@ export default function App() {
 
   return (
     <div className="invitation">
-      <AnimatePresence>
-        {!opened && (
-          <Opening onInteraction={() => setInteracted(true)} onComplete={() => setOpened(true)} />
-        )}
-      </AnimatePresence>
-      <Navigation
-        onReplay={() => {
-          localStorage.removeItem(INTRO_STORAGE_KEY);
-          setOpened(false);
-        }}
-      />
-      <MusicControl canPlay={interacted} />
+      <Navigation />
+      <MusicControl canPlay />
       <main>
         <section className="hero" id="our-wedding">
           <div className="paper-grain" />
           <div className="hero-botanical botanical-left" aria-hidden="true" />
           <div className="hero-botanical botanical-right" aria-hidden="true" />
-          <motion.div
-            className="hero-inner"
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: opened ? 1 : 0, y: opened ? 0 : 24 }}
-            transition={{ delay: 0.35, duration: 1 }}
-          >
+          <div className="hero-inner">
             <Monogram className="hero-monogram" />
             <p className="eyebrow">The wedding celebrations of</p>
             <h1>
@@ -746,7 +578,7 @@ export default function App() {
               </div>
             )}
             <div className="hero-date">{config.weddingLabel}</div>
-          </motion.div>
+          </div>
           <div className="hero-palace">
             <Palace />
           </div>

@@ -383,10 +383,10 @@ function downloadCalendar(event: Celebration) {
   URL.revokeObjectURL(url);
 }
 
-function SectionHeading({ eyebrow, children }: { eyebrow: string; children: React.ReactNode }) {
+function SectionHeading({ eyebrow, children }: { eyebrow?: string; children: React.ReactNode }) {
   return (
     <div className="section-heading">
-      <span>{eyebrow}</span>
+      {eyebrow && <span>{eyebrow}</span>}
       <h2>{children}</h2>
       <div className="botanical-rule">
         <i />
@@ -419,7 +419,6 @@ function EventCard({ event, index }: { event: Celebration; index: number }) {
         )}
       </div>
       <div className="event-content">
-        <p className="event-number">Celebration 0{index + 1}</p>
         <h3>{event.title}</h3>
         <p className="event-line">{event.supportingLine}</p>
         <div className="event-details">
@@ -772,7 +771,8 @@ export default function App() {
         </section>
 
         <section className="celebrations-section" id="celebrations">
-          <SectionHeading eyebrow="One link · All celebrations">The festivities</SectionHeading>
+          <Monogram className="celebrations-monogram" />
+          <SectionHeading>A little scroll through our forever</SectionHeading>
           <div className="events">
             {config.celebrations.map((event, index) => (
               <EventCard key={event.id} event={event} index={index} />

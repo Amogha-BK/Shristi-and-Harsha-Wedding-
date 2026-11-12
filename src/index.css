@@ -895,7 +895,22 @@ textarea:focus-visible {
 
 /* Celebration cards */
 .celebrations-section {
-  background: var(--paper);
+  background:
+    radial-gradient(ellipse at 0% 15%, rgb(135 145 123 / 0.18), transparent 55%),
+    radial-gradient(ellipse at 100% 85%, rgb(135 145 123 / 0.14), transparent 55%),
+    var(--paper);
+}
+.celebrations-monogram {
+  display: block;
+  width: clamp(82px, 22vw, 116px);
+  height: clamp(96px, 26vw, 136px);
+  margin: 0 auto 1.25rem;
+}
+.celebrations-section .section-heading h2 {
+  max-width: 800px;
+  font-size: clamp(2.6rem, 8vw, 4.8rem);
+  line-height: 1.08;
+  text-wrap: balance;
 }
 .events {
   max-width: 1080px;
@@ -948,12 +963,6 @@ textarea:focus-visible {
   background: rgb(250 246 238 / 0.91);
   box-shadow: 0 20px 70px rgb(58 42 30 / 0.15);
   text-align: center;
-}
-.event-number {
-  color: var(--sage-deep);
-  font-size: 0.62rem;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
 }
 .event-card h3 {
   max-width: 480px;

@@ -24,6 +24,8 @@ const navItems = [
   ["Venue", "venue"],
 ] as const;
 
+const INTRO_STORAGE_KEY = "amit-ankita-intro-v2";
+
 function Monogram({ className = "" }: { className?: string }) {
   return (
     <img
@@ -103,7 +105,7 @@ function Opening({
 
   const finish = () => {
     timers.current.forEach(window.clearTimeout);
-    localStorage.setItem("amit-ankita-invitation-opened", "true");
+    localStorage.setItem(INTRO_STORAGE_KEY, "true");
     onComplete();
   };
 
@@ -245,7 +247,7 @@ function MusicControl({ canPlay }: { canPlay: boolean }) {
   );
 }
 
-function Navigation() {
+function Navigation({ onReplay }: { onReplay: () => void }) {
   const [open, setOpen] = useState(false);
   return (
     <nav className="site-nav" aria-label="Invitation navigation">
@@ -258,6 +260,16 @@ function Navigation() {
             {label}
           </a>
         ))}
+        <button
+          className="focus-ring replay-intro"
+          type="button"
+          onClick={() => {
+            setOpen(false);
+            onReplay();
+          }}
+        >
+          Replay Intro
+        </button>
       </div>
       <button
         className="nav-toggle focus-ring"
@@ -679,9 +691,7 @@ function RSVP() {
 }
 
 export default function App() {
-  const [opened, setOpened] = useState(
-    () => localStorage.getItem("amit-ankita-invitation-opened") === "true",
-  );
+  const [opened, setOpened] = useState(() => localStorage.getItem(INTRO_STORAGE_KEY) === "true");
   const [interacted, setInteracted] = useState(opened);
 
   useEffect(() => {
@@ -706,7 +716,12 @@ export default function App() {
           <Opening onInteraction={() => setInteracted(true)} onComplete={() => setOpened(true)} />
         )}
       </AnimatePresence>
-      <Navigation />
+      <Navigation
+        onReplay={() => {
+          localStorage.removeItem(INTRO_STORAGE_KEY);
+          setOpened(false);
+        }}
+      />
       <MusicControl canPlay={interacted} />
       <main>
         <section className="hero" id="our-wedding">

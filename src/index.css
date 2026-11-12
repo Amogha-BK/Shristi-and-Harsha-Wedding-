@@ -783,9 +783,8 @@ textarea:focus-visible {
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 2 / 3;
   object-fit: cover;
-  object-position: center 25%;
   border-radius: inherit;
 }
 .family-section > div:not(.edge-flower) {

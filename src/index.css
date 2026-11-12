@@ -712,19 +712,16 @@ textarea:focus-visible {
     transform: translateY(5px);
   }
 }
-.hero-palace {
+.hero-artwork {
   position: absolute;
   z-index: -1;
-  inset: auto 0 0;
-  height: clamp(210px, 34vh, 360px);
-  opacity: 0.72;
-  mask-image: linear-gradient(transparent, black 32%);
+  inset: 0;
 }
-.hero-palace img {
+.hero-artwork img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 75%;
+  object-position: center;
 }
 .hero-botanical {
   position: absolute;
@@ -931,13 +928,13 @@ textarea:focus-visible {
 }
 .event-card {
   position: relative;
-  min-height: 620px;
+  min-height: 820px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
+  padding: 0;
   border: 1px solid rgb(184 154 103 / 0.4);
   isolation: isolate;
   background: var(--ivory);
@@ -948,60 +945,19 @@ textarea:focus-visible {
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center 60%;
-  filter: blur(8px);
-  transform: scale(1.04);
+  object-fit: fill;
 }
 .event-wash {
   position: absolute;
   z-index: -2;
   inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgb(48 32 23 / 0.18),
-    rgb(246 240 229 / 0.42) 45%,
-    rgb(246 240 229 / 0.62)
-  );
+  background: radial-gradient(ellipse at center, rgb(250 246 238 / 0.66), transparent 75%);
 }
 .event-content {
   width: 100%;
   max-width: 560px;
-  padding: 3.2rem 1.2rem;
-  border: 1px solid rgb(184 154 103 / 0.6);
-  border-bottom: 0;
-  background: rgb(250 246 238 / 0.97);
-  box-shadow: 0 20px 70px rgb(58 42 30 / 0.15);
+  padding: 9rem 1.6rem 11rem;
   text-align: center;
-}
-.event-filler {
-  position: relative;
-  width: 100%;
-  max-width: 560px;
-  height: clamp(110px, 24vw, 160px);
-  flex-shrink: 0;
-  overflow: hidden;
-  border: 1px solid rgb(184 154 103 / 0.6);
-  border-top: 0;
-  background: var(--paper);
-}
-.event-filler img {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: auto;
-}
-.scene-lanterns .event-filler img {
-  height: 100%;
-  object-fit: cover;
-  object-position: center bottom;
-}
-.event-filler::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(var(--paper), transparent 45%);
-  pointer-events: none;
 }
 .event-card h3 {
   max-width: 480px;
@@ -1413,6 +1369,12 @@ footer p {
   }
 }
 @media (min-width: 800px) {
+  .hero-artwork {
+    mask-image: linear-gradient(90deg, transparent, black 20%, black 80%, transparent);
+  }
+  .hero-artwork img {
+    object-fit: contain;
+  }
   footer {
     flex-direction: row;
     gap: clamp(2.5rem, 6vw, 6rem);
@@ -1457,11 +1419,10 @@ footer p {
     gap: 2rem;
   }
   .event-card {
-    min-height: 670px;
-    padding: 2rem;
+    min-height: 880px;
   }
   .event-content {
-    padding: 4.5rem 3rem 3.2rem;
+    padding: 10rem 3rem 12rem;
   }
   .rsvp-section {
     grid-template-columns: minmax(280px, 0.75fr) minmax(420px, 1fr);
@@ -1487,14 +1448,13 @@ footer p {
     align-items: stretch;
   }
   .event-card {
-    min-height: 760px;
-    padding: 1rem;
+    min-height: 920px;
   }
   .event-content {
-    padding: 4rem 1.4rem 2.6rem;
+    padding: 10rem 1.4rem 12rem;
   }
   .event-card h3 {
-    font-size: 3.35rem;
+    font-size: 3rem;
   }
   .event-actions {
     flex-direction: column;

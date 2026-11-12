@@ -268,13 +268,6 @@ function EventCard({ event, index }: { event: Celebration; index: number }) {
           </button>
         </div>
       </div>
-      <div className="event-filler" aria-hidden="true">
-        <img
-          src={event.id === "sufi" ? "/assets/sufi-filler.png" : event.image}
-          alt=""
-          loading="lazy"
-        />
-      </div>
     </motion.article>
   );
 }
@@ -534,8 +527,6 @@ export default function App() {
       <main>
         <section className="hero" id="our-wedding">
           <div className="paper-grain" />
-          <div className="hero-botanical botanical-left" aria-hidden="true" />
-          <div className="hero-botanical botanical-right" aria-hidden="true" />
           <div className="hero-inner">
             <Monogram className="hero-monogram" />
             <p className="eyebrow">The wedding celebrations of</p>
@@ -552,8 +543,8 @@ export default function App() {
             )}
             <div className="hero-date">{config.weddingLabel}</div>
           </div>
-          <div className="hero-palace" aria-hidden="true">
-            <img src="/assets/palace-filler.png" alt="" />
+          <div className="hero-artwork" aria-hidden="true">
+            <img src="/assets/opening-artwork-v1.jpg" alt="" fetchPriority="high" />
           </div>
         </section>
 

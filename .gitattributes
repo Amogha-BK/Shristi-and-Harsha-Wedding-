@@ -144,3 +144,8 @@
 *.stl                filter=lfs diff=lfs merge=lfs -text
 *.nc                 filter=lfs diff=lfs merge=lfs -text
 *.mat                filter=lfs diff=lfs merge=lfs -text
+
+# Ship small website assets directly so Git-based deployments receive the
+# image bytes even when the build checkout does not download Git LFS objects.
+/public/assets/** -filter -diff -merge -text
+/public/favicon.png -filter -diff -merge -text

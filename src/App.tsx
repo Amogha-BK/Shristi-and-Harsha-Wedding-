@@ -24,7 +24,7 @@ const navItems = [
   ["Venue", "venue"],
 ] as const;
 
-const INTRO_STORAGE_KEY = "amit-ankita-intro-v2";
+const INTRO_STORAGE_KEY = "amit-ankita-intro-v3";
 
 function Monogram({ className = "" }: { className?: string }) {
   return (

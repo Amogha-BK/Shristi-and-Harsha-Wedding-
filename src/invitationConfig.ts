@@ -51,7 +51,7 @@ export const invitationConfig = {
     travel: "",
     stay: "",
     contact: "",
-    musicUrl: "",
+    musicUrl: "/assets/marry-you.mp3",
     openingVideoUrl: "",
     whatsappHostNumber: "",
   },

@@ -36,12 +36,49 @@ function Monogram({ className = "" }: { className?: string }) {
 
 function MusicControl({ canPlay }: { canPlay: boolean }) {
   const audio = useRef<HTMLAudioElement>(null);
+  const userControlled = useRef(false);
   const [playing, setPlaying] = useState(false);
   const [muted, setMuted] = useState(false);
   const hasMusic = Boolean(config.optional.musicUrl);
 
+  useEffect(() => {
+    const player = audio.current;
+    if (!player || !canPlay || !hasMusic) return;
+    let disposed = false;
+    player.volume = 0.35;
+
+    const removeListeners = () => {
+      document.removeEventListener("click", startOnInteraction);
+      document.removeEventListener("keydown", startOnInteraction);
+    };
+    const tryAutoplay = () => {
+      void player.play().then(() => {
+        if (!disposed) removeListeners();
+      }).catch(() => {
+        // Browsers may require a gesture before playing audible music.
+      });
+    };
+    const startOnInteraction = (event: Event) => {
+      if (userControlled.current) {
+        removeListeners();
+        return;
+      }
+      if (event.target instanceof Element && event.target.closest(".music-controls")) return;
+      tryAutoplay();
+    };
+
+    document.addEventListener("click", startOnInteraction);
+    document.addEventListener("keydown", startOnInteraction);
+    tryAutoplay();
+    return () => {
+      disposed = true;
+      removeListeners();
+    };
+  }, [canPlay, hasMusic]);
+
   const togglePlay = async () => {
     if (!audio.current || !canPlay || !hasMusic) return;
+    userControlled.current = true;
     if (audio.current.paused) {
       try {
         await audio.current.play();
@@ -58,7 +95,16 @@ function MusicControl({ canPlay }: { canPlay: boolean }) {
   return (
     <div className="music-controls">
       {hasMusic && (
-        <audio ref={audio} src={config.optional.musicUrl} loop onError={() => setPlaying(false)} />
+        <audio
+          ref={audio}
+          src={config.optional.musicUrl}
+          preload="auto"
+          loop
+          onPlay={() => setPlaying(true)}
+          onPause={() => setPlaying(false)}
+          onVolumeChange={() => setMuted(Boolean(audio.current?.muted))}
+          onError={() => setPlaying(false)}
+        />
       )}
       <button
         type="button"
@@ -66,7 +112,8 @@ function MusicControl({ canPlay }: { canPlay: boolean }) {
         onClick={togglePlay}
         disabled={!hasMusic}
         aria-label={hasMusic ? (playing ? "Pause music" : "Play music") : "Music is not configured"}
-        title={hasMusic ? "Music" : "Music can be added in invitationConfig.ts"}
+        aria-pressed={playing}
+        title={playing ? "Pause music" : "Play music"}
       >
         {playing ? <Pause /> : <Music />}
       </button>
@@ -80,6 +127,8 @@ function MusicControl({ canPlay }: { canPlay: boolean }) {
             setMuted(!muted);
           }}
           aria-label={muted ? "Unmute music" : "Mute music"}
+          aria-pressed={muted}
+          title={muted ? "Unmute music" : "Mute music"}
         >
           {muted ? <VolumeX /> : <Volume2 />}
         </button>

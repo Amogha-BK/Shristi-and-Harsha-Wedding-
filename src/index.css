@@ -1000,19 +1000,6 @@ textarea:focus-visible {
   flex-direction: column;
   gap: 0.65rem;
 }
-.event-ornament {
-  position: absolute;
-  z-index: 1;
-  top: 4.2rem;
-  right: 2rem;
-  color: var(--gold);
-  opacity: 0.65;
-}
-.event-ornament svg {
-  width: 34px;
-  height: 34px;
-  fill: currentColor;
-}
 .button {
   min-height: 46px;
   display: inline-flex;
@@ -1047,7 +1034,6 @@ textarea:focus-visible {
 
 /* Venue */
 .venue-section {
-  min-height: 720px;
   display: grid;
   place-items: center;
   background:
@@ -1055,7 +1041,7 @@ textarea:focus-visible {
 }
 .venue-arch {
   width: min(100%, 610px);
-  min-height: 570px;
+  min-height: 440px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1080,13 +1066,6 @@ textarea:focus-visible {
 }
 .venue-arch > p {
   margin: 0.55rem 0 1.5rem;
-}
-.venue-arch small {
-  max-width: 330px;
-  margin-top: 1rem;
-  color: rgb(64 55 47 / 0.68);
-  font-size: 0.67rem;
-  line-height: 1.5;
 }
 .optional-section {
   display: grid;
@@ -1312,19 +1291,18 @@ fieldset legend {
 }
 
 footer {
-  min-height: 62svh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 5rem 1rem;
+  padding: clamp(2.75rem, 7vw, 5rem) 1.25rem;
   text-align: center;
   background: radial-gradient(circle, rgb(255 255 255 / 0.68), transparent 46%), var(--ivory);
 }
 footer .monogram {
-  width: 68px;
-  height: 80px;
-  margin-bottom: 1.3rem;
+  width: 92px;
+  height: 108px;
+  margin-bottom: 1rem;
 }
 footer > span {
   color: var(--gold);
@@ -1336,13 +1314,22 @@ footer strong {
   font-family: "Cormorant Garamond", serif;
   font-size: clamp(3rem, 13vw, 5rem);
   font-weight: 400;
+  line-height: 1.15;
+  margin-top: 0.5rem;
+}
+.closing-rule {
+  width: 72px;
+  height: 1px;
+  margin-top: 1.5rem;
+  background: var(--gold-light);
 }
 footer p {
   margin-top: 1rem;
   color: var(--sage-deep);
-  font-size: 0.62rem;
-  letter-spacing: 0.23em;
-  text-transform: uppercase;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(1.1rem, 4vw, 1.4rem);
+  font-style: italic;
+  line-height: 1.5;
 }
 
 @media (min-width: 640px) {

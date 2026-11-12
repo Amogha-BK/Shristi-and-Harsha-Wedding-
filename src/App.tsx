@@ -9,7 +9,6 @@ import {
   Music,
   Pause,
   Send,
-  Sparkles,
   Volume2,
   VolumeX,
   X,
@@ -266,15 +265,6 @@ function EventCard({ event, index }: { event: Celebration; index: number }) {
     >
       <img src={event.image} alt="" loading="lazy" />
       <div className="event-wash" />
-      <div className="event-ornament" aria-hidden="true">
-        {event.scene === "fire" ? (
-          <svg viewBox="0 0 90 90">
-            <path d="M47 10c5 18-10 20-6 35 3-7 9-8 12-18 13 18 18 31 8 45-8 12-29 13-40 0-12-15-2-32 11-43-2 16 6 20 9 21-1-16 13-22 6-40Z" />
-          </svg>
-        ) : (
-          <Sparkles />
-        )}
-      </div>
       <div className="event-content">
         <h3>{event.title}</h3>
         <p className="event-line">{event.supportingLine}</p>
@@ -626,7 +616,6 @@ export default function App() {
             >
               <MapPin /> Open in Google Maps
             </a>
-            <small>A venue search link is used until an exact map pin is supplied.</small>
           </div>
         </section>
 
@@ -647,7 +636,8 @@ export default function App() {
           <strong>
             {config.couple.first} & {config.couple.second}
           </strong>
-          <p>Indore · November 2026</p>
+          <div className="closing-rule" aria-hidden="true" />
+          <p>Our celebration is complete with you.</p>
         </footer>
       </main>
     </div>

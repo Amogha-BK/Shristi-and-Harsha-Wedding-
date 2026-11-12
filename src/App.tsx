@@ -576,6 +576,15 @@ export default function App() {
 
         <section className="family-section" id="invitation">
           <div className="edge-flower edge-flower-left" aria-hidden="true" />
+          <figure className="couple-portrait invitation-portrait">
+            <img
+              src="/assets/couple-2.jpg"
+              alt="Amit and Ankita together beneath a golden chandelier"
+              width={854}
+              height={1280}
+              loading="lazy"
+            />
+          </figure>
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -631,6 +640,16 @@ export default function App() {
         )}
 
         <footer>
+          <figure className="couple-portrait closing-portrait">
+            <img
+              src="/assets/couple-1.jpg"
+              alt="Amit kissing Ankita on the forehead"
+              width={854}
+              height={1280}
+              loading="lazy"
+            />
+          </figure>
+          <div className="closing-copy">
           <Monogram />
           <span>With love,</span>
           <strong>
@@ -638,6 +657,7 @@ export default function App() {
           </strong>
           <div className="closing-rule" aria-hidden="true" />
           <p>Our celebration is complete with you.</p>
+          </div>
         </footer>
       </main>
     </div>

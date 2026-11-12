@@ -80,10 +80,8 @@ textarea:focus-visible {
   display: grid;
   place-items: center;
   overflow: hidden;
-  color: #e5cfaa;
-  background:
-    radial-gradient(circle at 50% 48%, rgb(135 145 123 / 0.28), transparent 25rem),
-    linear-gradient(145deg, #183f3b, #0d322f 62%, #092824);
+  color: var(--taupe);
+  background: var(--ivory);
 }
 .opening-paper,
 .paper-grain {
@@ -99,16 +97,6 @@ textarea:focus-visible {
     ),
     linear-gradient(115deg, rgb(255 255 255 / 0.2), transparent 45%, rgb(184 154 103 / 0.04));
 }
-.opening .opening-paper {
-  opacity: 0.2;
-  background-image:
-    repeating-radial-gradient(
-      circle at 20% 30%,
-      rgb(246 240 229 / 0.06) 0 0.7px,
-      transparent 0.8px 3px
-    ),
-    linear-gradient(115deg, rgb(255 255 255 / 0.06), transparent 45%);
-}
 .opening-video {
   position: absolute;
   inset: 0;
@@ -123,7 +111,7 @@ textarea:focus-visible {
   flex-direction: column;
   align-items: center;
   border: 0;
-  color: #f3e5ce;
+  color: var(--taupe);
   background: transparent;
   text-transform: uppercase;
   letter-spacing: 0.22em;
@@ -191,7 +179,7 @@ textarea:focus-visible {
   aspect-ratio: 1;
   border-radius: 50%;
   opacity: 0;
-  background: rgb(229 207 170 / 0.25);
+  background: rgb(218 190 129 / 0.28);
 }
 .opening-started .opening-halo {
   animation: halo-spread 2.5s ease-out forwards;
@@ -199,7 +187,7 @@ textarea:focus-visible {
 .lotus-wrap {
   position: absolute;
   width: min(74vw, 300px);
-  color: #d9bd8d;
+  color: var(--gold);
   opacity: 0;
   transform: scale(0.42) translateY(15px);
 }
@@ -248,7 +236,7 @@ textarea:focus-visible {
   inset: 0;
 }
 .arch-line {
-  border: 1px solid rgb(229 207 170 / 0.48);
+  border: 1px solid rgb(184 154 103 / 0.58);
   border-bottom: 0;
   border-radius: 48vw 48vw 0 0;
   box-shadow: inset 0 0 40px rgb(255 255 255 / 0.42);
@@ -257,14 +245,14 @@ textarea:focus-visible {
   content: "";
   position: absolute;
   inset: 10px;
-  border: 1px solid rgb(229 207 170 / 0.2);
+  border: 1px solid rgb(184 154 103 / 0.18);
   border-bottom: 0;
   border-radius: inherit;
 }
 .arch-foliage {
   position: absolute;
   top: 7%;
-  color: #b8b99d;
+  color: var(--sage);
   font-family: serif;
   font-size: clamp(7rem, 20vw, 12rem);
   line-height: 0.5;
@@ -326,7 +314,7 @@ textarea:focus-visible {
 .palace {
   position: absolute;
   inset: 0;
-  color: #d8bd8f;
+  color: var(--gold);
 }
 .palace > div {
   position: absolute;
@@ -383,7 +371,7 @@ textarea:focus-visible {
 .palace-front i {
   width: 25%;
   height: 28%;
-  background: #31534d;
+  background: var(--ivory-deep);
 }
 .opening-couple {
   position: absolute;
@@ -393,7 +381,7 @@ textarea:focus-visible {
   flex-direction: column;
   align-items: center;
   opacity: 1;
-  color: #f3e5ce;
+  color: var(--taupe);
   text-align: center;
   transform: translateY(-50%);
   pointer-events: none;
@@ -426,7 +414,7 @@ textarea:focus-visible {
 }
 .opening-couple em {
   opacity: 0;
-  color: #d9bd8d;
+  color: var(--gold);
   font-family: "Allura", cursive;
   font-weight: 400;
 }
@@ -441,7 +429,7 @@ textarea:focus-visible {
   padding: 0.6rem 0.8rem;
   border: 0;
   border-bottom: 1px solid currentColor;
-  color: #f3e5ce;
+  color: var(--taupe);
   background: transparent;
   font-size: 0.7rem;
   letter-spacing: 0.14em;

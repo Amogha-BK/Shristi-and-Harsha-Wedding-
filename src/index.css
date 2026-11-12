@@ -1080,8 +1080,10 @@ textarea:focus-visible {
 }
 .venue-section::before {
   z-index: -2;
-  background: url("/assets/palace-filler.png") center / cover no-repeat;
-  opacity: 0.3;
+  background: url("/assets/venue-lawn.jpg") center / cover no-repeat;
+  filter: blur(6px);
+  transform: scale(1.06);
+  opacity: 0.4;
 }
 .venue-section::after {
   z-index: -1;
@@ -1491,6 +1493,13 @@ footer p {
 }
 
 /* One continuous invitation, from the opening hero through the family sign-off. */
+.celebrations-section {
+  padding-bottom: 0;
+}
+.venue-section {
+  padding-block: clamp(2rem, 6vw, 3rem);
+  overflow: hidden;
+}
 .invitation {
   width: min(100%, 760px);
   margin-inline: auto;

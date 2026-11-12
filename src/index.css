@@ -12,7 +12,10 @@
   --blush: #d8bcae;
   --ink: #40372f;
   --paper: #faf6ee;
-  font-family: "Manrope", sans-serif;
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-body: "Manrope", Arial, sans-serif;
+  --font-script: "Allura", cursive;
+  font-family: var(--font-body);
   color: var(--ink);
   background: var(--ivory);
   font-synthesis: none;
@@ -27,6 +30,8 @@
     min-width: 320px;
     min-height: 100vh;
     background: var(--ivory);
+    font-size: 1rem;
+    line-height: 1.6;
   }
   button,
   a,
@@ -37,7 +42,7 @@
   h1,
   h2,
   h3 {
-    font-family: "Cormorant Garamond", serif;
+    font-family: var(--font-display);
   }
   button:not(:disabled),
   a {
@@ -122,7 +127,7 @@ textarea:focus-visible {
 }
 .opening-trigger small {
   margin-top: 0.45rem;
-  font-family: "Cormorant Garamond", serif;
+  font-family: var(--font-display);
   font-size: 1.05rem;
   text-transform: none;
   letter-spacing: 0.08em;
@@ -397,7 +402,7 @@ textarea:focus-visible {
   display: grid;
   grid-template-columns: 1fr 128px 1fr;
   align-items: center;
-  font-family: "Cormorant Garamond", serif;
+  font-family: var(--font-display);
   font-size: clamp(2.7rem, 12vw, 5.5rem);
   font-weight: 400;
   line-height: 0.9;
@@ -415,7 +420,7 @@ textarea:focus-visible {
 .opening-couple em {
   opacity: 0;
   color: var(--gold);
-  font-family: "Allura", cursive;
+  font-family: var(--font-script);
   font-weight: 400;
 }
 .opening-started .opening-couple {
@@ -536,14 +541,14 @@ textarea:focus-visible {
 }
 .nav-mark {
   color: var(--taupe);
-  font-family: "Cormorant Garamond", serif;
+  font-family: var(--font-display);
   font-size: 1.2rem;
   letter-spacing: 0.12em;
   text-decoration: none;
 }
 .nav-mark span {
   color: var(--gold);
-  font-family: "Allura", cursive;
+  font-family: var(--font-script);
 }
 .nav-toggle {
   width: 42px;
@@ -583,7 +588,7 @@ textarea:focus-visible {
   border: 0;
   color: var(--taupe);
   background: transparent;
-  font-family: "Cormorant Garamond", serif;
+  font-family: var(--font-display);
   font-size: 1.1rem;
   text-decoration: none;
   text-align: left;
@@ -650,9 +655,12 @@ textarea:focus-visible {
 .eyebrow,
 .section-heading > span {
   color: var(--sage-deep);
-  font-size: 0.66rem;
+  font-size: clamp(0.6875rem, 1.5vw, 0.75rem);
   font-weight: 600;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.2em;
+  line-height: 1.7;
+  max-width: 100%;
+  text-wrap: balance;
   text-transform: uppercase;
 }
 .hero h1 {
@@ -664,16 +672,16 @@ textarea:focus-visible {
   gap: clamp(0.35rem, 2vw, 1rem);
   width: 100%;
   color: var(--taupe);
-  font-size: clamp(2.85rem, 13.4vw, 7.8rem);
+  font-size: clamp(2.5rem, 11vw, 6.5rem);
   font-weight: 400;
-  line-height: 0.9;
-  letter-spacing: -0.045em;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
   white-space: nowrap;
 }
 .hero h1 span {
   margin: 0;
   color: var(--gold);
-  font-family: "Allura", cursive;
+  font-family: var(--font-script);
   font-size: 0.5em;
   line-height: 0.8;
 }
@@ -682,13 +690,14 @@ textarea:focus-visible {
   padding: 0.75rem 1.25rem;
   border-top: 1px solid var(--gold-light);
   border-bottom: 1px solid var(--gold-light);
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(0.88rem, 3.8vw, 1.15rem);
-  letter-spacing: 0.1em;
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 3.6vw, 1.25rem);
+  letter-spacing: 0.06em;
+  line-height: 1.5;
 }
 .parent-lines {
   margin-top: 1.25rem;
-  font-family: "Cormorant Garamond", serif;
+  font-family: var(--font-display);
   font-size: 1rem;
 }
 .scroll-cue {
@@ -781,14 +790,15 @@ textarea:focus-visible {
 }
 .script-accent {
   color: var(--gold);
-  font-family: "Allura", cursive;
-  font-size: 2rem;
+  font-family: var(--font-script);
+  font-size: clamp(2rem, 5vw, 2.5rem);
+  line-height: 1.3;
 }
 .family-section p {
   margin: 1rem 0 1.8rem;
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(2rem, 8vw, 3.25rem);
-  line-height: 1.15;
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 5.5vw, 2.75rem);
+  line-height: 1.3;
   text-wrap: balance;
 }
 .family-section .monogram {
@@ -836,9 +846,11 @@ textarea:focus-visible {
 .section-heading h2 {
   margin: 0.55rem 0;
   color: var(--taupe);
-  font-size: clamp(2.7rem, 11vw, 4.8rem);
+  font-size: clamp(2.25rem, 7.5vw, 4rem);
   font-weight: 400;
-  line-height: 0.95;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
 }
 .botanical-rule {
   width: 120px;
@@ -865,8 +877,9 @@ textarea:focus-visible {
   margin: 2.6rem 0 1rem;
   color: var(--sage-deep);
   text-align: center;
-  font-family: "Cormorant Garamond", serif;
-  font-size: 1.1rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.125rem, 3.5vw, 1.375rem);
+  line-height: 1.5;
   font-style: italic;
 }
 .countdown {
@@ -885,14 +898,15 @@ textarea:focus-visible {
 }
 .countdown strong {
   display: block;
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(1.8rem, 9vw, 3.8rem);
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 7vw, 3.5rem);
+  font-variant-numeric: tabular-nums;
   font-weight: 400;
   line-height: 1;
 }
 .countdown span {
   color: var(--sage-deep);
-  font-size: clamp(0.48rem, 2vw, 0.66rem);
+  font-size: clamp(0.625rem, 1.7vw, 0.75rem);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -916,8 +930,8 @@ textarea:focus-visible {
 }
 .celebrations-section .section-heading h2 {
   max-width: 800px;
-  font-size: clamp(2.6rem, 8vw, 4.8rem);
-  line-height: 1.08;
+  font-size: clamp(2.25rem, 7.5vw, 4rem);
+  line-height: 1.12;
   text-wrap: balance;
 }
 .events {
@@ -927,6 +941,7 @@ textarea:focus-visible {
   gap: 1.25rem;
 }
 .event-card {
+  container-type: inline-size;
   position: relative;
   min-height: 820px;
   overflow: hidden;
@@ -963,17 +978,21 @@ textarea:focus-visible {
   max-width: 480px;
   margin: 0.65rem auto;
   color: var(--taupe);
-  font-size: clamp(2.6rem, 11vw, 4.4rem);
+  font-size: clamp(2rem, 10cqi, 3.25rem);
   font-weight: 400;
-  line-height: 0.92;
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
 }
 .event-line {
   max-width: 380px;
   margin: 1.2rem auto;
   color: var(--taupe);
-  font-family: "Cormorant Garamond", serif;
-  font-size: 1.2rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.125rem, 5cqi, 1.375rem);
   font-style: italic;
+  line-height: 1.45;
+  text-wrap: balance;
 }
 .event-details {
   display: flex;
@@ -982,12 +1001,12 @@ textarea:focus-visible {
   padding: 1.2rem 0;
   border-top: 1px solid rgb(184 154 103 / 0.35);
   border-bottom: 1px solid rgb(184 154 103 / 0.35);
-  font-size: 0.83rem;
-  line-height: 1.5;
+  font-size: 0.875rem;
+  line-height: 1.65;
 }
 .event-details strong {
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.01em;
 }
 .event-actions {
   margin-top: 1.5rem;
@@ -1003,15 +1022,18 @@ textarea:focus-visible {
   gap: 0.5rem;
   padding: 0.8rem 1rem;
   border: 1px solid var(--gold);
-  font-size: 0.69rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  letter-spacing: 0.09em;
+  letter-spacing: 0.075em;
+  line-height: 1.5;
+  text-align: center;
   text-decoration: none;
   text-transform: uppercase;
   transition: 0.2s ease;
 }
 .button svg {
   width: 16px;
+  flex-shrink: 0;
 }
 .button-solid {
   color: white;
@@ -1075,12 +1097,14 @@ textarea:focus-visible {
 }
 .venue-arch h3 {
   color: var(--taupe);
-  font-size: 3.5rem;
+  font-size: clamp(2.5rem, 8vw, 3.5rem);
   font-weight: 400;
-  line-height: 1;
+  line-height: 1.15;
 }
 .venue-arch > p {
   margin: 0.55rem 0 1.5rem;
+  font-size: clamp(0.875rem, 2.5vw, 1rem);
+  line-height: 1.6;
 }
 .optional-section {
   display: grid;
@@ -1258,7 +1282,7 @@ fieldset legend {
 .dialog-content h2 {
   padding-right: 2rem;
   color: var(--taupe);
-  font-family: "Cormorant Garamond", serif;
+  font-family: var(--font-display);
   font-size: 2.2rem;
   font-weight: 400;
 }
@@ -1275,7 +1299,7 @@ fieldset legend {
   white-space: pre-wrap;
   border: 1px solid rgb(184 154 103 / 0.28);
   background: var(--ivory);
-  font-family: "Manrope", sans-serif;
+  font-family: var(--font-body);
   font-size: 0.72rem;
   line-height: 1.65;
 }
@@ -1327,16 +1351,17 @@ footer .monogram {
 }
 .closing-copy > span {
   color: var(--gold);
-  font-family: "Allura", cursive;
-  font-size: 2rem;
+  font-family: var(--font-script);
+  font-size: clamp(2rem, 5vw, 2.5rem);
+  line-height: 1.3;
 }
 .closing-copy .closing-message {
   color: var(--taupe);
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(1.55rem, 5vw, 2.35rem);
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4.5vw, 2.125rem);
   font-weight: 400;
   font-style: normal;
-  line-height: 1.4;
+  line-height: 1.45;
   margin-top: 1rem;
   max-width: 620px;
   text-wrap: balance;
@@ -1350,7 +1375,7 @@ footer .monogram {
 footer p {
   margin-top: 1rem;
   color: var(--sage-deep);
-  font-family: "Cormorant Garamond", serif;
+  font-family: var(--font-display);
   font-size: clamp(1.1rem, 4vw, 1.4rem);
   font-style: italic;
   line-height: 1.5;
@@ -1402,7 +1427,7 @@ footer p {
   .nav-links a,
   .nav-links button {
     padding: 0;
-    font-family: "Manrope", sans-serif;
+    font-family: var(--font-body);
     font-size: 0.66rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -1452,9 +1477,6 @@ footer p {
   }
   .event-content {
     padding: 10rem 1.4rem 12rem;
-  }
-  .event-card h3 {
-    font-size: 3rem;
   }
   .event-actions {
     flex-direction: column;

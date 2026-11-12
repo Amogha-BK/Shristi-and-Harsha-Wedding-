@@ -1337,13 +1337,16 @@ footer .monogram {
   font-family: "Allura", cursive;
   font-size: 2rem;
 }
-footer strong {
+.closing-copy .closing-message {
   color: var(--taupe);
   font-family: "Cormorant Garamond", serif;
-  font-size: clamp(3rem, 13vw, 5rem);
+  font-size: clamp(1.55rem, 5vw, 2.35rem);
   font-weight: 400;
-  line-height: 1.15;
-  margin-top: 0.5rem;
+  font-style: normal;
+  line-height: 1.4;
+  margin-top: 1rem;
+  max-width: 620px;
+  text-wrap: balance;
 }
 .closing-rule {
   width: 72px;

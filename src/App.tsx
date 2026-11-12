@@ -632,13 +632,14 @@ export default function App() {
 
         <footer>
           <div className="closing-copy">
-          <Monogram />
-          <span>With love,</span>
-          <strong>
-            {config.couple.first} & {config.couple.second}
-          </strong>
-          <div className="closing-rule" aria-hidden="true" />
-          <p>Our celebration is complete with you.</p>
+            <Monogram />
+            <span>With love,</span>
+            <p className="closing-message">
+              With hearts full of joy and love, the Wadhwani &amp; Bagzai families request the
+              pleasure of your presence as they celebrate the beginning of a beautiful forever.
+            </p>
+            <div className="closing-rule" aria-hidden="true" />
+            <p>Our celebration is complete with you.</p>
           </div>
         </footer>
       </main>

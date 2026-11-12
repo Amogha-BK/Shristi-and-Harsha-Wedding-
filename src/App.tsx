@@ -36,7 +36,9 @@ function Monogram({ className = "" }: { className?: string }) {
 
 function MusicControl({ canPlay }: { canPlay: boolean }) {
   const audio = useRef<HTMLAudioElement>(null);
+  const welcome = useRef<HTMLDialogElement>(null);
   const userControlled = useRef(false);
+  const [needsOpening, setNeedsOpening] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [muted, setMuted] = useState(false);
   const hasMusic = Boolean(config.optional.musicUrl);
@@ -57,8 +59,10 @@ function MusicControl({ canPlay }: { canPlay: boolean }) {
       if (disposed || userControlled.current) return;
       void player.play().then(() => {
         if (!disposed) removeListeners();
-      }).catch(() => {
-        // Browsers may require a gesture before playing audible music.
+      }).catch((error: unknown) => {
+        if (!disposed && !userControlled.current && error instanceof DOMException && error.name === "NotAllowedError") {
+          setNeedsOpening(true);
+        }
       });
     };
     const startOnInteraction = (event: Event) => {
@@ -81,6 +85,12 @@ function MusicControl({ canPlay }: { canPlay: boolean }) {
     };
   }, [canPlay, hasMusic]);
 
+  useEffect(() => {
+    const dialog = welcome.current;
+    if (needsOpening && dialog && !dialog.open) dialog.showModal();
+    else if (!needsOpening && dialog?.open) dialog.close();
+  }, [needsOpening]);
+
   const togglePlay = async () => {
     if (!audio.current || !canPlay || !hasMusic) return;
     userControlled.current = true;
@@ -99,6 +109,29 @@ function MusicControl({ canPlay }: { canPlay: boolean }) {
 
   return (
     <div className="music-controls">
+      <dialog
+        ref={welcome}
+        className="music-welcome"
+        aria-labelledby="music-welcome-title"
+        onCancel={() => { userControlled.current = true; setNeedsOpening(false); }}
+      >
+        <Monogram />
+        <p className="eyebrow">You are warmly invited</p>
+        <h2 id="music-welcome-title">{config.couple.first} &amp; {config.couple.second}</h2>
+        <p>A celebration of love, with a little music.</p>
+        <button
+          className="button button-solid focus-ring"
+          type="button"
+          onClick={() => { setNeedsOpening(false); void togglePlay(); }}
+        >
+          <Music aria-hidden="true" /> Open invitation
+        </button>
+        <button
+          className="welcome-silent focus-ring"
+          type="button"
+          onClick={() => { userControlled.current = true; setNeedsOpening(false); }}
+        >Continue without music</button>
+      </dialog>
       {hasMusic && (
         <audio
           ref={audio}
@@ -106,7 +139,7 @@ function MusicControl({ canPlay }: { canPlay: boolean }) {
           autoPlay
           preload="auto"
           loop
-          onPlay={() => setPlaying(true)}
+          onPlay={() => { setPlaying(true); setNeedsOpening(false); }}
           onPause={() => setPlaying(false)}
           onVolumeChange={() => setMuted(Boolean(audio.current?.muted))}
           onError={() => setPlaying(false)}

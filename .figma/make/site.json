@@ -1,0 +1,11 @@
+{
+  "title": "Amit and Ankita wedding",
+  "description": "Amit and Ankita’s interactive wedding invitation shares celebration details, venue directions, calendar downloads, a live countdown and WhatsApp RSVP in one place.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

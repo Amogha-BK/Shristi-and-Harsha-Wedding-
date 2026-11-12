@@ -576,15 +576,6 @@ export default function App() {
 
         <section className="family-section" id="invitation">
           <div className="edge-flower edge-flower-left" aria-hidden="true" />
-          <figure className="couple-portrait invitation-portrait">
-            <img
-              src="/assets/couple-2.jpg"
-              alt="Amit and Ankita together beneath a golden chandelier"
-              width={854}
-              height={1280}
-              loading="lazy"
-            />
-          </figure>
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}

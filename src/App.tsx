@@ -148,11 +148,10 @@ function localEventToDate(value: string) {
 
 function Countdown() {
   const target = useMemo(() => {
-    const upcoming = config.celebrations
-      .map((event) => ({ ...event, timestamp: localEventToDate(event.start).getTime() }))
-      .filter((event) => event.timestamp > Date.now())
-      .sort((a, b) => a.timestamp - b.timestamp)[0];
-    return upcoming ?? null;
+    const wedding = config.celebrations.find((event) => event.id === "wedding");
+    return wedding
+      ? { ...wedding, timestamp: localEventToDate(wedding.start).getTime() }
+      : null;
   }, []);
   const [remaining, setRemaining] = useState(() =>
     target ? Math.max(0, target.timestamp - Date.now()) : 0,
@@ -167,7 +166,8 @@ function Countdown() {
     return () => window.clearInterval(timer);
   }, [target]);
 
-  if (!target) return <p className="countdown-complete">The celebrations have begun.</p>;
+  if (!target || remaining === 0)
+    return <p className="countdown-complete">Our wedding day is here.</p>;
   const values = [
     ["Days", Math.floor(remaining / 86400000)],
     ["Hours", Math.floor((remaining / 3600000) % 24)],
@@ -176,8 +176,8 @@ function Countdown() {
   ];
   return (
     <div>
-      <p className="countdown-label">Counting down to {target.shortName}</p>
-      <div className="countdown" aria-label={`Countdown to ${target.shortName}`}>
+      <p className="countdown-label">Counting down to our wedding day</p>
+      <div className="countdown" aria-label="Countdown to our wedding day">
         {values.map(([label, value]) => (
           <div key={label}>
             <strong>{String(value).padStart(2, "0")}</strong>

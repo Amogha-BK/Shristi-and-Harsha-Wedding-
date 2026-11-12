@@ -33,30 +33,6 @@ function Monogram({ className = "" }: { className?: string }) {
   );
 }
 
-function Palace({ intro = false }: { intro?: boolean }) {
-  return (
-    <div className={`palace ${intro ? "palace-intro" : ""}`} aria-hidden="true">
-      <div className="palace-back">
-        <i />
-        <i />
-        <i />
-        <i />
-        <i />
-      </div>
-      <div className="palace-mid">
-        <i />
-        <i />
-        <i />
-      </div>
-      <div className="palace-front">
-        <i />
-        <i />
-        <i />
-        <i />
-      </div>
-    </div>
-  );
-}
 
 function MusicControl({ canPlay }: { canPlay: boolean }) {
   const audio = useRef<HTMLAudioElement>(null);
@@ -291,6 +267,13 @@ function EventCard({ event, index }: { event: Celebration; index: number }) {
             <CalendarDays /> Add to calendar
           </button>
         </div>
+      </div>
+      <div className="event-filler" aria-hidden="true">
+        <img
+          src={event.id === "sufi" ? "/assets/sufi-filler.png" : event.image}
+          alt=""
+          loading="lazy"
+        />
       </div>
     </motion.article>
   );
@@ -569,8 +552,8 @@ export default function App() {
             )}
             <div className="hero-date">{config.weddingLabel}</div>
           </div>
-          <div className="hero-palace">
-            <Palace />
+          <div className="hero-palace" aria-hidden="true">
+            <img src="/assets/palace-filler.png" alt="" />
           </div>
         </section>
 

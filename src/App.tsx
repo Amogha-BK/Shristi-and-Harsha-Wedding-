@@ -640,15 +640,6 @@ export default function App() {
         )}
 
         <footer>
-          <figure className="couple-portrait closing-portrait">
-            <img
-              src="/assets/couple-1.jpg"
-              alt="Amit kissing Ankita on the forehead"
-              width={854}
-              height={1280}
-              loading="lazy"
-            />
-          </figure>
           <div className="closing-copy">
           <Monogram />
           <span>With love,</span>

@@ -783,8 +783,9 @@ textarea:focus-visible {
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 2 / 3;
+  aspect-ratio: 4 / 5;
   object-fit: cover;
+  object-position: center 25%;
   border-radius: inherit;
 }
 .family-section > div:not(.edge-flower) {
@@ -1315,9 +1316,6 @@ footer {
   text-align: center;
   background: radial-gradient(circle, rgb(255 255 255 / 0.68), transparent 46%), var(--ivory);
   gap: 2rem;
-}
-.closing-portrait {
-  width: min(50vw, 220px);
 }
 .closing-copy {
   display: flex;

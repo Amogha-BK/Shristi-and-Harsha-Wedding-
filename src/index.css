@@ -1549,9 +1549,11 @@ footer p {
 .venue-content > p, .parent-lines { font-family: var(--font-body); font-size: clamp(0.8rem, 2.4vw, 0.95rem); line-height: 1.7; }
 .venue-section::before { background-image: url('/assets/shristi-harsh-celebration.png'); opacity: 0.18; filter: none; }
 .family-contacts { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem 1.5rem; margin-top: 1.5rem; font-size: 0.9rem; }
-.family-contacts span, .family-contacts small { flex-basis: 100%; }
+.family-contacts > span { flex-basis: 100%; }
 .family-contacts a { color: var(--taupe); text-underline-offset: 4px; }
-.family-contacts small { font-size: 0.75rem; }
+.contact-numbers { display: flex; flex-wrap: wrap; justify-content: center; column-gap: 0.65rem; row-gap: 0.4rem; font-variant-numeric: tabular-nums; font-size: clamp(0.72rem, 2.7vw, 0.9rem); }
+.contact-number { display: inline-flex; align-items: center; gap: 0.65rem; white-space: nowrap; }
+.contact-separator { color: var(--gold); }
 
 /* A monogram seal opens the invitation. */
 .invitation-opening {
@@ -1565,8 +1567,20 @@ footer p {
   isolation: isolate;
   overflow: auto;
   color: var(--taupe);
-  background: radial-gradient(ellipse at 50% 43%, #fffaf0 8%, #f4e8d4 65%, #e7d1ae);
+  background: transparent;
 }
+.opening-gate {
+  position: absolute;
+  inset-block: 0;
+  width: 50%;
+  z-index: -3;
+  background-color: #f4e8d4;
+  box-shadow: 0 0 35px rgb(101 84 67 / 0.12);
+  pointer-events: none;
+  will-change: transform;
+}
+.opening-gate-left { left: 0; border-right: 1px solid rgb(171 133 46 / 0.22); background-image: radial-gradient(ellipse at 100% 43%, #fffaf0 8%, #f4e8d4 65%, #e7d1ae); }
+.opening-gate-right { right: 0; border-left: 1px solid rgb(171 133 46 / 0.22); background-image: radial-gradient(ellipse at 0% 43%, #fffaf0 8%, #f4e8d4 65%, #e7d1ae); }
 .opening-floral-backdrop {
   position: absolute;
   inset: 0;
@@ -1611,6 +1625,16 @@ footer p {
   box-shadow: 0 0 0 6px rgb(171 133 46 / 0.06), 0 14px 40px rgb(117 44 39 / 0.12);
 }
 .opening-logo-button img { position: relative; display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: contain; border-radius: 50%; mix-blend-mode: multiply; }
+.opening-logo-button:not(:disabled) img { transform: translate(var(--seal-x, 0px), var(--seal-y, 0px)); transition: transform 0.3s ease-out; }
+.opening-logo-button { touch-action: manipulation; }
+.opening-logo-orbit { position: absolute; inset: -17px; border: 1px dashed rgb(171 133 46 / 0.4); border-radius: 50%; animation: seal-orbit 35s linear infinite; pointer-events: none; }
+.opening-logo-button:hover .opening-logo-orbit, .opening-logo-button:focus-visible .opening-logo-orbit { border-color: var(--gold); }
+.opening-petal-burst { position: absolute; left: 50%; top: 50%; pointer-events: none; }
+.opening-petal-burst i { position: absolute; width: 12px; height: 22px; border-radius: 85% 15% 75% 25%; background: #a95658; box-shadow: inset 2px 2px 4px rgb(255 255 255 / 0.25); }
+.opening-petal-burst i:nth-child(3n) { background: #cba548; }
+.opening-petal-burst i:nth-child(3n + 1) { background: #d8bcae; }
+.opening-tap-hint { display: block; width: 20px; height: 20px; margin: 0 auto 0.65rem; color: var(--gold); animation: seal-tap 2.8s ease-in-out infinite; }
+.opening-song-note { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 1rem; color: #806a4f; font: 400 10px/1.6 var(--font-body); letter-spacing: 0.04em; }
 .opening-logo-glow { position: absolute; inset: -9px; border: 1px solid rgb(171 133 46 / 0.3); border-radius: 50%; animation: seal-breathe 3s ease-in-out infinite; }
 .opening-logo-button:focus-visible { outline-color: var(--taupe); outline-offset: 12px; }
 .opening-instruction { font: 600 11px/1.8 var(--font-body); letter-spacing: 0.2em; text-transform: uppercase; }
@@ -1631,8 +1655,11 @@ footer p {
 .hero h1:focus { outline: none; }
 @keyframes seal-breathe { 0%, 100% { transform: scale(1); opacity: 0.35; } 50% { transform: scale(1.1); opacity: 0.8; } }
 @keyframes seal-petal { from { transform: translateY(-10px) rotate(-20deg); opacity: 0.15; } to { transform: translateY(14px) rotate(65deg); opacity: 0.45; } }
+@keyframes seal-orbit { to { transform: rotate(360deg); } }
+@keyframes seal-tap { 0%, 65%, 100% { transform: translateY(0) rotate(-12deg); opacity: 0.6; } 80% { transform: translateY(-5px) rotate(-3deg); opacity: 1; } }
 @media (prefers-reduced-motion: reduce) {
-  .opening-logo-glow, .opening-sparkles i { animation: none; }
+  .opening-logo-glow, .opening-logo-orbit, .opening-sparkles i, .opening-tap-hint { animation: none; }
+  .opening-logo-button:not(:disabled) img { transform: none; transition: none; }
 }
 @media (max-height: 500px) and (orientation: landscape) {
   .opening-welcome { padding-block: 0.5rem; }

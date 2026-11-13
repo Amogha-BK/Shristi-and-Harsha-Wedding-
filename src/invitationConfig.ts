@@ -15,7 +15,11 @@
   phereTime?: string;
 };
 const maps = (address: string) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
-const weddingAddress = "Grand Piazza, CISF Road, Vasundhara, Indirapuram";
+const weddingVenue = {
+  name: "The Grand Piazza",
+  address: "Lawn 1, CISF Road, Indirapuram, Ghaziabad",
+};
+const weddingMap = maps(`${weddingVenue.name}, ${weddingVenue.address}`);
 const homeAddress = "26 C, Heritage Divine, Gyan Khand 2, Indirapuram";
 const mehndiAddress = "Golden Rivaah Party Hall, Gyan Khand-2, Indirapuram, Ghaziabad, Uttar Pradesh";
 export const invitationConfig = {
@@ -29,9 +33,9 @@ export const invitationConfig = {
   invitationLine: "With the blessings of Late Smt. Jagdai Devi & Late Veer Singh Chauhan, we request the honour of your gracious presence at the wedding of their loving granddaughter Shristi with Harsh.",
   monogram: "/assets/shristi-harsh-monogram.png",
   artwork: "/assets/shristi-harsh-celebration.png",
-  venue: { name: "Grand Piazza", address: "CISF Road, Vasundhara, Indirapuram", mapUrl: maps(weddingAddress) },
-  contacts: ["989957693", "9582317003", "9899012987"],
-  optional: { travel: "", stay: "", contact: "", musicUrl: "/assets/marry-you.mp3", whatsappHostNumber: "" },
+  venue: { ...weddingVenue, mapUrl: weddingMap },
+  contacts: ["9899577693", "9582317003", "9899012987"],
+  optional: { travel: "", stay: "", contact: "", musicUrl: "/assets/kudmayi.mp3", whatsappHostNumber: "" },
   celebrations: [
     {
       id: "mehndi", shortName: "Mehndi", title: "Mehndi — Rang Pyaar Ke",
@@ -52,10 +56,10 @@ export const invitationConfig = {
     {
       id: "wedding", shortName: "Wedding Ceremony", title: "Shubh Vivaah — A Promise of Forever",
       dateLabel: "Thursday, 10 December 2026", timeLabel: "7:00 PM onwards",
-      venue: "Grand Piazza", address: "CISF Road, Vasundhara, Indirapuram",
+      venue: weddingVenue.name, address: weddingVenue.address,
       supportingLine: "Sacred vows, two hearts and the love of everyone who brought us here.",
       start: "20261210T190000", calendarTitle: "Shristi & Harsh · Wedding Ceremony",
-      image: "/assets/wedding-floral-arch-v2.png", scene: "fire", mapUrl: maps(weddingAddress),
+      image: "/assets/wedding-floral-arch-v2.png", scene: "fire", mapUrl: weddingMap,
     },
   ] satisfies Celebration[],
   calendar: { timezone: "Asia/Kolkata" },

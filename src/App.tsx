@@ -8,12 +8,13 @@ import {
   Menu,
   Music,
   Pause,
+  Pointer,
   Send,
   Volume2,
   VolumeX,
   X,
 } from "lucide-react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion, useIsPresent, useReducedMotion } from "motion/react";
 import { Celebration, invitationConfig as config } from "./invitationConfig";
 
 const navItems = [
@@ -36,51 +37,97 @@ function Monogram({ className = "" }: { className?: string }) {
 
 function InvitationOpening({ onOpen }: { onOpen: () => void }) {
   const reducedMotion = useReducedMotion();
+  const isPresent = useIsPresent();
+  const moveSeal = (event: React.PointerEvent<HTMLElement>) => {
+    if (reducedMotion || event.pointerType === "touch" || !isPresent) return;
+    const bounds = event.currentTarget.getBoundingClientRect();
+    event.currentTarget.style.setProperty("--seal-x", `${((event.clientX - bounds.left) / bounds.width - 0.5) * 12}px`);
+    event.currentTarget.style.setProperty("--seal-y", `${((event.clientY - bounds.top) / bounds.height - 0.5) * 12}px`);
+  };
   return (
     <motion.section
       className="invitation-opening"
       aria-label="Open Shristi and Harsh’s wedding invitation"
       initial={{ opacity: 1 }}
-      exit={{ opacity: 0, scale: reducedMotion ? 1 : 1.04 }}
-      transition={{ duration: reducedMotion ? 0.1 : 0.85, ease: "easeInOut" }}
+      exit={{ opacity: reducedMotion ? 0 : [1, 1, 0] }}
+      transition={{ duration: reducedMotion ? 0.15 : 1.65, times: [0, 0.9, 1], ease: "easeInOut" }}
+      onPointerMove={moveSeal}
+      onPointerLeave={(event) => {
+        event.currentTarget.style.setProperty("--seal-x", "0px");
+        event.currentTarget.style.setProperty("--seal-y", "0px");
+      }}
     >
-      <div className="opening-floral-backdrop" aria-hidden="true" />
-      <div className="paper-grain" aria-hidden="true" />
-      <div className="opening-stationery-frame" aria-hidden="true" />
-      <div className="opening-sparkles" aria-hidden="true">
+      {[-1, 1].map((direction) => (
+        <motion.div
+          key={direction}
+          className={`opening-gate ${direction < 0 ? "opening-gate-left" : "opening-gate-right"}`}
+          aria-hidden="true"
+          exit={reducedMotion ? { opacity: 0 } : { x: `${direction * 104}%` }}
+          transition={{ duration: reducedMotion ? 0.15 : 1.15, delay: reducedMotion ? 0 : 0.3, ease: [0.65, 0, 0.2, 1] }}
+        />
+      ))}
+      <motion.div className="opening-floral-backdrop" aria-hidden="true" exit={{ opacity: 0 }} transition={{ duration: 0.5 }} />
+      <motion.div className="paper-grain" aria-hidden="true" exit={{ opacity: 0 }} transition={{ duration: 0.4 }} />
+      <motion.div className="opening-stationery-frame" aria-hidden="true" exit={{ opacity: 0, scale: reducedMotion ? 1 : 1.04 }} transition={{ duration: 0.45 }} />
+      <motion.div className="opening-sparkles" aria-hidden="true" exit={{ opacity: 0 }} transition={{ duration: 0.5 }}>
         {Array.from({ length: 8 }, (_, index) => <i key={index} />)}
-      </div>
+      </motion.div>
       <div className="opening-welcome">
+        <motion.div exit={{ opacity: 0, y: reducedMotion ? 0 : -18 }} transition={{ duration: 0.35 }}>
         <Flower2 className="opening-flower" strokeWidth={1} aria-hidden="true" />
         <p className="opening-kicker">A celebration of love &amp; togetherness</p>
+        </motion.div>
         <h1 className="opening-names">
-          <span>{config.couple.first}</span>
+          <motion.span exit={{ opacity: 0, x: reducedMotion ? 0 : -45 }} transition={{ duration: 0.45 }}>{config.couple.first}</motion.span>
           <motion.button
             type="button"
             className="opening-logo-button focus-ring"
             onClick={onOpen}
+            disabled={!isPresent}
             autoFocus
             aria-label="Open Shristi and Harsh’s wedding invitation"
-            whileHover={reducedMotion ? undefined : { scale: 1.06 }}
-            whileTap={reducedMotion ? undefined : { scale: 0.95 }}
+            whileHover={reducedMotion ? undefined : { scale: 1.09, rotate: -3 }}
+            whileTap={reducedMotion ? undefined : { scale: 0.9, rotate: 2 }}
+            exit={reducedMotion ? { opacity: 0 } : { scale: [1, 0.92, 1.18], opacity: [1, 1, 0], rotate: [0, -5, 3] }}
+            transition={{ duration: reducedMotion ? 0.15 : 0.6 }}
           >
             <span className="opening-logo-glow" aria-hidden="true" />
+            <span className="opening-logo-orbit" aria-hidden="true" />
             <img src={config.monogram} alt="" width={180} height={180} fetchPriority="high" />
+            {!reducedMotion && <span className="opening-petal-burst" aria-hidden="true">
+              {Array.from({ length: 18 }, (_, index) => (
+                <motion.i
+                  key={index}
+                  initial={{ opacity: 0, x: 0, y: 0, scale: 0.3 }}
+                  exit={{
+                    x: Math.cos(index * Math.PI / 9) * (130 + index % 3 * 35),
+                    y: Math.sin(index * Math.PI / 9) * (140 + index % 4 * 25),
+                    rotate: index * 47,
+                    scale: [0.3, 1, 0.7],
+                    opacity: [0, 0.95, 0],
+                  }}
+                  transition={{ duration: 1.2, delay: index * 0.012, ease: "easeOut" }}
+                />
+              ))}
+            </span>}
           </motion.button>
-          <span>{config.couple.second}</span>
+          <motion.span exit={{ opacity: 0, x: reducedMotion ? 0 : 45 }} transition={{ duration: 0.45 }}>{config.couple.second}</motion.span>
         </h1>
+        <motion.div exit={{ opacity: 0, y: reducedMotion ? 0 : 14 }} transition={{ duration: 0.3 }}>
+        <Pointer className="opening-tap-hint" strokeWidth={1.2} aria-hidden="true" />
         <p className="opening-instruction">Tap the monogram</p>
         <p className="opening-whisper">to open our invitation</p>
+        <p className="opening-song-note"><Music size={11} aria-hidden="true" /> Opens with Kudmayi</p>
         <div className="opening-date-line"><span />10 December 2026<span /></div>
         <p className="opening-location">Indirapuram</p>
+        </motion.div>
       </div>
     </motion.section>
   );
 }
 
 
-function MusicControl({ canPlay }: { canPlay: boolean }) {
-  const audio = useRef<HTMLAudioElement>(null);
+function MusicControl({ canPlay, audio }: { canPlay: boolean; audio: React.RefObject<HTMLAudioElement | null> }) {
   const userControlled = useRef(false);
   const [playing, setPlaying] = useState(false);
   const [muted, setMuted] = useState(false);
@@ -124,7 +171,7 @@ function MusicControl({ canPlay }: { canPlay: boolean }) {
       disposed = true;
       removeListeners();
     };
-  }, [canPlay, hasMusic]);
+  }, [canPlay, hasMusic, audio]);
 
   const togglePlay = async () => {
     if (!audio.current || !canPlay || !hasMusic) return;
@@ -148,7 +195,6 @@ function MusicControl({ canPlay }: { canPlay: boolean }) {
         <audio
           ref={audio}
           src={config.optional.musicUrl}
-          autoPlay={canPlay}
           preload="auto"
           loop
           onPlay={() => setPlaying(true)}
@@ -560,16 +606,30 @@ function RSVP() {
 
 export default function App() {
   const [opened, setOpened] = useState(false);
+  const [revealed, setRevealed] = useState(false);
   const invitationHeading = useRef<HTMLHeadingElement>(null);
+  const weddingAudio = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
-    if (opened) return;
+    if (revealed) invitationHeading.current?.focus({ preventScroll: true });
+  }, [revealed]);
+
+  useEffect(() => {
+    if (revealed) return;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     return () => { document.body.style.overflow = previousOverflow; };
-  }, [opened]);
+  }, [revealed]);
 
   const openInvitation = () => {
+    if (opened) return;
+    // Start in the tap handler so mobile browsers retain user activation.
+    if (weddingAudio.current) {
+      weddingAudio.current.volume = 0.35;
+      void weddingAudio.current.play().catch(() => {
+        // The music control can retry if playback is unavailable or blocked.
+      });
+    }
     window.scrollTo({ top: 0, behavior: "instant" });
     setOpened(true);
   };
@@ -584,12 +644,12 @@ export default function App() {
 
   return (
     <>
-    <AnimatePresence onExitComplete={() => invitationHeading.current?.focus({ preventScroll: true })}>
+    <AnimatePresence onExitComplete={() => setRevealed(true)}>
       {!opened && <InvitationOpening key="opening" onOpen={openInvitation} />}
     </AnimatePresence>
-    <div className="invitation" inert={!opened} aria-hidden={!opened}>
+    <div className="invitation" inert={!revealed} aria-hidden={!revealed}>
       <Navigation />
-      <MusicControl canPlay={opened} />
+      <MusicControl canPlay={opened} audio={weddingAudio} />
       <main>
         <section className="hero" id="our-wedding">
           <div className="paper-grain" />
@@ -684,9 +744,16 @@ export default function App() {
             <p>26 C, Heritage Divine, Gyan Khand 2, Indirapuram</p>
             <div className="family-contacts">
               <span>R.S.V.P. · Smt. Asha Devi &amp; Sh. Jagat Singh Chauhan</span>
-              <a className="focus-ring" href="tel:+919582317003">95823 17003</a>
-              <a className="focus-ring" href="tel:+919899012987">98990 12987</a>
-              <small>Additional number as printed: {config.contacts[0]}</small>
+              <div className="contact-numbers" aria-label="Family contact numbers">
+                {config.contacts.map((number, index) => (
+                  <span key={number} className="contact-number">
+                    {index > 0 && <span className="contact-separator" aria-hidden="true">·</span>}
+                    {number.length === 10 ? (
+                      <a className="focus-ring" href={`tel:+91${number}`}>{number}</a>
+                    ) : number}
+                  </span>
+                ))}
+              </div>
             </div>
             <div className="closing-rule" aria-hidden="true" />
             <p>Our celebration is complete with you.</p>

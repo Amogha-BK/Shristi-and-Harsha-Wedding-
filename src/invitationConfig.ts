@@ -39,7 +39,7 @@ export const invitationConfig = {
       venue: "Golden Rivaah Party Hall", address: "Gyan Khand-2, Indirapuram, Ghaziabad (U.P.)",
       supportingLine: "Henna-stained hands, music and a little magic. Let the celebrations begin!",
       start: "20261209T200000", calendarTitle: "Shristi & Harsh · Mehndi",
-      image: "/assets/shristi-harsh-celebration.png", scene: "lanterns", mapUrl: maps(mehndiAddress),
+      image: "/assets/shristi-harsh-mehndi.png", scene: "lanterns", mapUrl: maps(mehndiAddress),
     },
     {
       id: "haldi", shortName: "Haldi Hath", title: "Haldi Hath — Sunehre Pal",
@@ -47,7 +47,7 @@ export const invitationConfig = {
       venue: "Bride’s Residence", address: homeAddress,
       supportingLine: "A touch of turmeric, a shower of petals and blessings for a golden beginning.",
       start: "20261210T110000", calendarTitle: "Shristi & Harsh · Haldi Hath",
-      image: "/assets/shristi-harsh-celebration.png", scene: "candlelight", mapUrl: maps(homeAddress),
+      image: "/assets/shristi-harsh-haldi.png", scene: "candlelight", mapUrl: maps(homeAddress),
     },
     {
       id: "wedding", shortName: "Wedding Ceremony", title: "Shubh Vivaah — A Promise of Forever",

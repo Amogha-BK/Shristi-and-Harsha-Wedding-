@@ -1,11 +1,14 @@
 {
-    "title":  "Shristi \u0026 Harsh | Wedding Celebrations",
-    "description":  "Join Shristi and Harsh for Mehndi, Haldi Hath and their wedding on 9–10 December 2026 in Indirapuram. Celebration times, family details and venue directions.",
-    "robots":  {
-                   "index":  false
-               },
-    "accessibility":  {
-                          "addBypassLinks":  false,
-                          "ignoreReducedMotion":  false
-                      }
+  "title": "Shristi & Harsh | Wedding Celebrations",
+  "description": "Join Shristi and Harsh for Mehndi, Haldi Hath and their wedding on 9-10 December 2026 in Indirapuram. Celebration times, family details and venue directions.",
+  "icons": {
+    "icon": "/assets/shristi-harsh-monogram.png"
+  },
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
 }

@@ -19,6 +19,7 @@ const navItems = [
   ["Our Wedding", "our-wedding"],
   ["Celebrations", "celebrations"],
   ["Venue", "venue"],
+  ["Contact", "contact"],
 ] as const;
 
 
@@ -606,7 +607,7 @@ export default function App() {
           </section>
         )}
 
-        <footer>
+        <footer id="contact">
           <div className="closing-copy">
             <Monogram />
             <span>With love,</span>

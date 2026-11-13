@@ -1,0 +1,16 @@
+# Floral arch artwork
+
+Created with the built-in imagegen tool. References supplied by the user informed the floral arches and invitation framing. Text is rendered separately in React.
+
+## Mehndi arch
+
+Use case: stylized-concept. Asset: full-bleed portrait Indian MEHNDI wedding invitation arch background, 1024x1536. Editorial architectural photograph with refined painterly warmth, inspired by ornate Indian wedding invitations. Elegant scalloped sandstone arch, burgundy and fuchsia bougainvillea cascading densely across top and OUTER edges, olive foliage, warm antique brass hanging lanterns ONLY at far outer sides. Emerald and burgundy cushions, henna cones and brass diyas in bottom 15 percent. Pale warm ivory plaster in the ENTIRE interior central region, from 23% to 80% height and 15% to 85% width must be completely empty clean pale plaster for separately typeset text. Symmetrical frontal perspective, realistic proportions, no distortion, exquisite flowers, intimate festive evening mood but center LIGHT CREAM for readable dark text. Arch frames the edges, no columns inside central text area. NO TEXT, NO LETTERS, NO MONOGRAM, NO PEOPLE, no watermark. Never put flowers or lanterns across center.
+
+## Haldi arch
+
+Use case: stylized-concept. Asset: full-bleed portrait Indian HALDI wedding invitation arch background, 1024x1536. Editorial architectural photograph with refined painterly warmth. Elegant scalloped ivory sandstone arch densely framed by golden yellow and saffron marigold flower garlands, tiny white jasmine flowers, fresh green leaves, soft pale yellow fabric draped along OUTER edges. At bottom 15 percent an antique brass bowl of turmeric, small kalash with coconut and mango leaves, marigold petals and low pale yellow cushions, not blocking center. Soft radiant morning sunlight, joyful luxurious Indian wedding decor, realistic proportions, no distortion. Entire central arch interior pale warm ivory plaster, from 23% to 80% height and 15% to 85% width must be completely empty clean pale plaster for separate typeset text. Decorate outer edges, top and bottom only. Frontal symmetrical portrait composition. NO TEXT, NO LETTERS, NO MONOGRAM, NO PEOPLE, no watermark.
+
+## Wedding arch
+
+Use case: stylized-concept. Asset: full-bleed portrait Indian WEDDING / PHERE ceremony invitation arch background, 1024x1536. Luxurious editorial architectural photograph with refined painterly warmth. Elegant carved ivory scalloped arch like a royal mandap, abundant ivory jasmine and white roses with delicate green vines cascading across TOP and OUTER side edges. Graceful cream chiffon drapes tied at outer pillars. Brass hanging wedding bells only at far edges, brass urns overflowing white flowers near floor on sides. Small sacred havan fire in ornate low square vessel centered in bottom 12 percent, pale embroidered cushions and scattered rose petals. Gentle warm ceremonial light. Realistic undistorted proportions, frontal symmetric perspective. Large ENTIRE central arch interior remains clean warm pale ivory plaster from 23% to 80% height and 15% to 85% width for separately typeset text. Absolutely no flowers, objects, shadows or ornaments crossing center text region. NO TEXT, NO LETTERS, NO MONOGRAM, NO PEOPLE, no watermark.
+

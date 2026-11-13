@@ -3,6 +3,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import {
   Check,
   Clipboard,
+  Flower2,
   MapPin,
   Menu,
   Music,
@@ -225,9 +226,9 @@ function SectionHeading({ eyebrow, children }: { eyebrow?: string; children: Rea
     <div className="section-heading">
       {eyebrow && <span>{eyebrow}</span>}
       <h2>{children}</h2>
-      <div className="botanical-rule">
+      <div className="botanical-rule" aria-hidden="true">
         <i />
-        <b>◆</b>
+        <Flower2 strokeWidth={1} />
         <i />
       </div>
     </div>
@@ -244,18 +245,18 @@ function EventCard({ event, index }: { event: Celebration; index: number }) {
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.8, delay: index * 0.08 }}
     >
-      <img src={event.image} alt="" loading="lazy" />
-      <div className="event-wash" />
+      <div className="event-portrait">
+      <img src={event.image} alt="" loading="lazy" width={1024} height={1536} />
       <div className="event-content">
-        <span className="event-number">Celebration {String(index + 1).padStart(2, "0")} · {event.shortName}</span>
-        <h3>{event.title}</h3>
-        <p className="event-line">{event.supportingLine}</p>
+        <span className="event-number">Shristi &amp; Harsh · Celebration {String(index + 1).padStart(2, "0")}</span>
+        <h3>{event.shortName}</h3>
+        <p className="event-subtitle">{event.title.split(" — ")[1]}</p>
         <div className="event-details">
           <strong>{event.dateLabel}</strong>
           <span>{event.timeLabel}</span>
           {event.phereTime && <span>Phere: {event.phereTime}</span>}
-          <span>{event.venue}</span>
-          <span>{event.address}</span>
+          <span className="event-venue">{event.venue}</span>
+          <span className="event-address">{event.address}</span>
         </div>
         <div className="event-actions">
           <a
@@ -268,6 +269,8 @@ function EventCard({ event, index }: { event: Celebration; index: number }) {
           </a>
         </div>
       </div>
+      </div>
+      <p className="event-line">{event.supportingLine}</p>
     </motion.article>
   );
 }

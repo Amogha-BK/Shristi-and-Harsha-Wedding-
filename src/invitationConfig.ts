@@ -35,6 +35,7 @@ export const invitationConfig = {
     groomGrandparents: "Grandson of Smt. Kamla Devi & Sh. Pramveer Singh",
   },
   weddingLabel: "10 December 2026 · Indirapuram",
+  countdownTarget: "2026-12-10T00:00:00+05:30",
   memorialLine: "With the blessings and in loving memory of Late Smt. Jagdai Devi & Late Veer Singh Chauhan",
   invitationLine: "Shristi & Harsh cordially invite you to grace the occasion of their Wedding Ceremony with your presence and blessings.",
   blessingLine: "We look forward to your gracious presence and blessings on this joyous occasion.",

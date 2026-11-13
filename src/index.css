@@ -1540,6 +1540,7 @@ footer p {
   .invitation-regards { grid-template-columns: 1fr; }
 }
 .countdown-target { margin: -0.25rem 0 1.5rem; padding-inline: 0.5rem; color: var(--taupe); font: 500 clamp(0.7rem, 2vw, 0.85rem)/1.8 var(--font-body); text-align: center; text-wrap: balance; }
+.countdown-clock { margin: 1.25rem 0 0; color: var(--sage-deep); font: 400 clamp(0.65rem, 1.8vw, 0.8rem)/1.8 var(--font-body); text-align: center; font-variant-numeric: tabular-nums; }
 .events { max-width: 620px; gap: clamp(2rem, 6vw, 3.5rem); }
 .event-card { display: block; background: #fcf6eb; border: 1px solid #d7c49f; border-radius: 3px; box-shadow: 0 12px 35px rgb(101 84 67 / 0.08); }
 .event-portrait { position: relative; }

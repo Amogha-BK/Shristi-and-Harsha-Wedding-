@@ -18,6 +18,12 @@ import { AnimatePresence, motion, useIsPresent, useReducedMotion } from "motion/
 import { Celebration, invitationConfig as config } from "./invitationConfig";
 import { getCountdownParts } from "./countdown";
 
+const indiaClock = new Intl.DateTimeFormat("en-GB", {
+  timeZone: config.calendar.timezone,
+  day: "2-digit", month: "short", year: "numeric",
+  hour: "2-digit", minute: "2-digit", second: "2-digit", hourCycle: "h23",
+});
+
 const navItems = [
   ["Our Wedding", "our-wedding"],
   ["Celebrations", "celebrations"],
@@ -263,8 +269,7 @@ function Navigation() {
 }
 
 function Countdown() {
-  const wedding = config.celebrations.find((event) => event.id === "wedding");
-  const target = wedding ? Date.parse(wedding.start) : NaN;
+  const target = Date.parse(config.countdownTarget);
   const [now, setNow] = useState(Date.now);
 
   useEffect(() => {
@@ -281,10 +286,8 @@ function Countdown() {
     };
   }, []);
 
-  if (!wedding || !Number.isFinite(target)) return null;
+  if (!Number.isFinite(target)) return null;
   const remaining = getCountdownParts(target, now);
-  if (remaining.complete)
-    return <p className="countdown-complete">Our wedding celebration has begun!</p>;
   const values = [
     ["Days", remaining.days],
     ["Hours", remaining.hours],
@@ -293,9 +296,9 @@ function Countdown() {
   ];
   return (
     <div>
-      <p className="countdown-label">Counting down to our wedding ceremony</p>
-      <p className="countdown-target"><time dateTime={wedding.start}>{wedding.dateLabel} · {wedding.timeLabel} IST</time></p>
-      <div className="countdown" role="timer" aria-label="Time remaining until 10 December 2026 at 7:00 p.m. Indian Standard Time">
+      <p className="countdown-label">{remaining.complete ? "Our wedding day is here!" : "Counting down to our wedding day"}</p>
+      <p className="countdown-target"><time dateTime={config.countdownTarget}>10 December 2026 · 12:00 a.m. IST</time></p>
+      <div className="countdown" role="timer" aria-label="Time remaining until midnight at the start of 10 December 2026, Indian Standard Time">
         {values.map(([label, value]) => (
           <div key={label}>
             <strong>{String(value).padStart(2, "0")}</strong>
@@ -303,6 +306,7 @@ function Countdown() {
           </div>
         ))}
       </div>
+      <p className="countdown-clock">Current time: <time dateTime={new Date(now).toISOString()}>{indiaClock.format(now)} IST</time></p>
     </div>
   );
 }

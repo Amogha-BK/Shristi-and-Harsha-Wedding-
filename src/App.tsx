@@ -202,7 +202,7 @@ function MusicControl({ canPlay, audio }: { canPlay: boolean; audio: React.RefOb
         <audio
           ref={audio}
           src={config.optional.musicUrl}
-          preload="auto"
+          preload="metadata"
           loop
           onPlay={() => setPlaying(true)}
           onPause={() => setPlaying(false)}
@@ -243,12 +243,24 @@ function MusicControl({ canPlay, audio }: { canPlay: boolean; audio: React.RefOb
 
 function Navigation() {
   const [open, setOpen] = useState(false);
+  const toggle = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (!open) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+        toggle.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", closeOnEscape);
+    return () => document.removeEventListener("keydown", closeOnEscape);
+  }, [open]);
   return (
     <nav className="site-nav" aria-label="Invitation navigation">
-      <a className="nav-mark focus-ring" href="#our-wedding" aria-label="Home">
+      <a className="nav-mark focus-ring" href="#our-wedding" aria-label="Home" onClick={() => setOpen(false)}>
         S <span>&</span> H
       </a>
-      <div className={`nav-links ${open ? "nav-links-open" : ""}`}>
+      <div id="invitation-navigation" className={`nav-links ${open ? "nav-links-open" : ""}`}>
         {navItems.map(([label, id]) => (
           <a key={id} className="focus-ring" href={`#${id}`} onClick={() => setOpen(false)}>
             {label}
@@ -256,10 +268,12 @@ function Navigation() {
         ))}
       </div>
       <button
+        ref={toggle}
         className="nav-toggle focus-ring"
         type="button"
         onClick={() => setOpen(!open)}
         aria-expanded={open}
+        aria-controls="invitation-navigation"
         aria-label="Toggle navigation"
       >
         {open ? <X /> : <Menu />}
@@ -325,6 +339,20 @@ function SectionHeading({ eyebrow, children }: { eyebrow?: string; children: Rea
   );
 }
 
+function EventLocation({ event, className }: { event: Celebration; className: string }) {
+  return (
+    <div className={`event-location ${className}`}>
+      <span className="event-venue">{event.venue}</span>
+      <span className="event-address">{event.address}</span>
+      <div className="event-actions">
+        <a className="button button-outline focus-ring" href={event.mapUrl} target="_blank" rel="noreferrer">
+          <MapPin /> Directions
+        </a>
+      </div>
+    </div>
+  );
+}
+
 function EventCard({ event, index }: { event: Celebration; index: number }) {
   return (
     <motion.article
@@ -336,7 +364,7 @@ function EventCard({ event, index }: { event: Celebration; index: number }) {
       transition={{ duration: 0.8, delay: index * 0.08 }}
     >
       <div className="event-portrait">
-      <img src={event.image} alt="" loading="lazy" width={1024} height={1536} />
+      <img src={event.image} alt="" loading="lazy" decoding="async" width={1024} height={1536} />
       <div className="event-content">
         <span className="event-number">Shristi &amp; Harsh · Celebration {String(index + 1).padStart(2, "0")}</span>
         <h3>{event.shortName}</h3>
@@ -345,21 +373,11 @@ function EventCard({ event, index }: { event: Celebration; index: number }) {
           <strong>{event.dateLabel}</strong>
           <span>{event.timeLabel}</span>
           {event.phereTime && <span>Phere: {event.phereTime}</span>}
-          <span className="event-venue">{event.venue}</span>
-          <span className="event-address">{event.address}</span>
         </div>
-        <div className="event-actions">
-          <a
-            className="button button-outline focus-ring"
-            href={event.mapUrl}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <MapPin /> Directions
-          </a>
-        </div>
+        <EventLocation event={event} className="event-location-in-card" />
       </div>
       </div>
+      <EventLocation event={event} className="event-location-mobile" />
       <p className="event-line">{event.supportingLine}</p>
     </motion.article>
   );
@@ -611,14 +629,31 @@ export default function App() {
   const weddingAudio = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
-    if (revealed) invitationHeading.current?.focus({ preventScroll: true });
+    if (revealed) {
+      window.scrollTo({ top: 0, behavior: "instant" });
+      invitationHeading.current?.focus({ preventScroll: true });
+    }
   }, [revealed]);
 
   useEffect(() => {
     if (revealed) return;
-    const previousOverflow = document.body.style.overflow;
+    const body = document.body;
+    const scrollY = window.scrollY;
+    const previous = {
+      overflow: body.style.overflow,
+      position: body.style.position,
+      top: body.style.top,
+      width: body.style.width,
+    };
+    // Fixed positioning also stops background scrolling in iOS Safari.
     document.body.style.overflow = "hidden";
-    return () => { document.body.style.overflow = previousOverflow; };
+    body.style.position = "fixed";
+    body.style.top = `-${scrollY}px`;
+    body.style.width = "100%";
+    return () => {
+      Object.assign(body.style, previous);
+      window.scrollTo({ top: scrollY, behavior: "instant" });
+    };
   }, [revealed]);
 
   const openInvitation = () => {

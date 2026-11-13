@@ -25,6 +25,8 @@
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 72px;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
   body {
     min-width: 320px;
@@ -39,6 +41,8 @@
   textarea {
     -webkit-tap-highlight-color: transparent;
   }
+  button, a { touch-action: manipulation; }
+  input, textarea, select { font-size: 16px; }
   h1,
   h2,
   h3 {

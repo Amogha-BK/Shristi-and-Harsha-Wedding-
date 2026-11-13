@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import {
   Check,
@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { AnimatePresence, motion, useIsPresent, useReducedMotion } from "motion/react";
 import { Celebration, invitationConfig as config } from "./invitationConfig";
+import { getCountdownParts } from "./countdown";
 
 const navItems = [
   ["Our Wedding", "our-wedding"],
@@ -261,45 +262,40 @@ function Navigation() {
   );
 }
 
-function localEventToDate(value: string) {
-  const match = value.match(/(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})/);
-  if (!match) return new Date();
-  const [, y, m, d, h, min, s] = match;
-  return new Date(`${y}-${m}-${d}T${h}:${min}:${s}+05:30`);
-}
-
 function Countdown() {
-  const target = useMemo(() => {
-    const wedding = config.celebrations.find((event) => event.id === "wedding");
-    return wedding
-      ? { ...wedding, timestamp: localEventToDate(wedding.start).getTime() }
-      : null;
-  }, []);
-  const [remaining, setRemaining] = useState(() =>
-    target ? Math.max(0, target.timestamp - Date.now()) : 0,
-  );
+  const wedding = config.celebrations.find((event) => event.id === "wedding");
+  const target = wedding ? Date.parse(wedding.start) : NaN;
+  const [now, setNow] = useState(Date.now);
 
   useEffect(() => {
-    if (!target) return;
-    const timer = window.setInterval(
-      () => setRemaining(Math.max(0, target.timestamp - Date.now())),
-      1000,
-    );
-    return () => window.clearInterval(timer);
-  }, [target]);
+    const update = () => setNow(Date.now());
+    const timer = window.setInterval(update, 1000);
+    document.addEventListener("visibilitychange", update);
+    window.addEventListener("focus", update);
+    window.addEventListener("pageshow", update);
+    return () => {
+      window.clearInterval(timer);
+      document.removeEventListener("visibilitychange", update);
+      window.removeEventListener("focus", update);
+      window.removeEventListener("pageshow", update);
+    };
+  }, []);
 
-  if (!target || remaining === 0)
-    return <p className="countdown-complete">Our wedding day is here.</p>;
+  if (!wedding || !Number.isFinite(target)) return null;
+  const remaining = getCountdownParts(target, now);
+  if (remaining.complete)
+    return <p className="countdown-complete">Our wedding celebration has begun!</p>;
   const values = [
-    ["Days", Math.floor(remaining / 86400000)],
-    ["Hours", Math.floor((remaining / 3600000) % 24)],
-    ["Minutes", Math.floor((remaining / 60000) % 60)],
-    ["Seconds", Math.floor((remaining / 1000) % 60)],
+    ["Days", remaining.days],
+    ["Hours", remaining.hours],
+    ["Minutes", remaining.minutes],
+    ["Seconds", remaining.seconds],
   ];
   return (
     <div>
-      <p className="countdown-label">Counting down to our wedding day</p>
-      <div className="countdown" aria-label="Countdown to our wedding day">
+      <p className="countdown-label">Counting down to our wedding ceremony</p>
+      <p className="countdown-target"><time dateTime={wedding.start}>{wedding.dateLabel} · {wedding.timeLabel} IST</time></p>
+      <div className="countdown" role="timer" aria-label="Time remaining until 10 December 2026 at 7:00 p.m. Indian Standard Time">
         {values.map(([label, value]) => (
           <div key={label}>
             <strong>{String(value).padStart(2, "0")}</strong>
@@ -683,9 +679,10 @@ export default function App() {
             viewport={{ once: true, amount: 0.5 }}
           >
             <span className="script-accent">With joyful hearts</span>
+            <p className="family-memory">{config.memorialLine}</p>
             <p>{config.invitationLine}</p>
             <p className="grandparents-line">Harsh, grandson of Smt. Kamla Devi &amp; Sh. Pramveer Singh</p>
-            <p className="family-blessing">Let us shower the couple with blessings as they begin their forever.</p>
+            <p className="family-blessing">{config.blessingLine}</p>
             <Monogram />
           </motion.div>
         </section>
@@ -736,15 +733,16 @@ export default function App() {
         <footer id="contact">
           <div className="closing-copy">
             <Monogram />
-            <span>With love,</span>
+            <span>With best wishes from:</span>
             <p className="closing-message">
-              Mrs. &amp; Mr. Jagat Singh Chauhan, together with all relatives and friends,
-              invite you to bless Shristi &amp; Harsh as they begin a beautiful forever.
+              All Relatives &amp; Friends
             </p>
-            <p>26 C, Heritage Divine, Gyan Khand 2, Indirapuram</p>
+            <p>From: Mrs. &amp; Mr. Jagat Singh Chauhan</p>
+            <p>{config.homeAddress}</p>
             <div className="family-contacts">
               <span>R.S.V.P. · Smt. Asha Devi &amp; Sh. Jagat Singh Chauhan</span>
               <div className="contact-numbers" aria-label="Family contact numbers">
+                <span className="contact-label">Contact:</span>
                 {config.contacts.map((number, index) => (
                   <span key={number} className="contact-number">
                     {index > 0 && <span className="contact-separator" aria-hidden="true">·</span>}

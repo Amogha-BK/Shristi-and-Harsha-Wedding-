@@ -1524,6 +1524,8 @@ footer p {
 .parent-lines p + p { margin-top: 0.5rem; }
 .family-section .grandparents-line { font-size: 1.25rem; margin-top: 1.5rem; }
 .family-section .family-blessing { font-size: 1.15rem; font-style: italic; margin-top: 1.5rem; }
+.family-section .family-memory { max-width: 540px; font-size: clamp(1.1rem, 3.5vw, 1.6rem); color: var(--sage-deep); }
+.countdown-target { margin: -0.25rem 0 1.5rem; padding-inline: 0.5rem; color: var(--taupe); font: 500 clamp(0.7rem, 2vw, 0.85rem)/1.8 var(--font-body); text-align: center; text-wrap: balance; }
 .events { max-width: 620px; gap: clamp(2rem, 6vw, 3.5rem); }
 .event-card { display: block; background: #fcf6eb; border: 1px solid #d7c49f; border-radius: 3px; box-shadow: 0 12px 35px rgb(101 84 67 / 0.08); }
 .event-portrait { position: relative; }
@@ -1554,6 +1556,7 @@ footer p {
 .contact-numbers { display: flex; flex-wrap: wrap; justify-content: center; column-gap: 0.65rem; row-gap: 0.4rem; font-variant-numeric: tabular-nums; font-size: clamp(0.72rem, 2.7vw, 0.9rem); }
 .contact-number { display: inline-flex; align-items: center; gap: 0.65rem; white-space: nowrap; }
 .contact-separator { color: var(--gold); }
+.contact-label { flex-basis: 100%; color: var(--sage-deep); font-weight: 600; }
 
 /* A monogram seal opens the invitation. */
 .invitation-opening {

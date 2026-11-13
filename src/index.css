@@ -1513,10 +1513,10 @@ footer p {
 }
 
 /* Invitation artwork and celebration stationery for Shristi & Harsh. */
-.monogram { mix-blend-mode: multiply; }
-.hero { padding-bottom: 280px; }
-.hero-artwork { top: auto; height: 330px; z-index: 0; }
-.hero-artwork img { object-fit: cover; object-position: center bottom; }
+.monogram { aspect-ratio: 1; height: auto; object-fit: contain; mix-blend-mode: multiply; }
+.hero { padding-bottom: clamp(220px, 55vw, 435px); }
+.hero-artwork { top: auto; height: auto; aspect-ratio: 3 / 2; z-index: 0; mask-image: linear-gradient(transparent, black 35%); }
+.hero-artwork img { display: block; width: 100%; height: auto; object-fit: contain; }
 .hero h1 { font-family: var(--font-script); font-size: clamp(3rem, 12vw, 6.5rem); }
 .hero-monogram { width: 150px; height: 150px; margin-bottom: 0.8rem; }
 .ganesh-invocation { color: var(--taupe); font-family: var(--font-display); margin-bottom: 1rem; letter-spacing: 0.06em; }
@@ -1524,15 +1524,29 @@ footer p {
 .parent-lines p + p { margin-top: 0.5rem; }
 .family-section .grandparents-line { font-size: 1.25rem; margin-top: 1.5rem; }
 .family-section .family-blessing { font-size: 1.15rem; font-style: italic; margin-top: 1.5rem; }
-.event-card { background: #fcf3e5; }
-.event-card > img { inset: auto 0 0; height: 235px; object-position: center bottom; }
-.event-wash { background: linear-gradient(#fcf3e5 58%, transparent 80%); }
-.event-content { padding: 2.5rem clamp(1.25rem, 6vw, 3rem) 250px; }
-.event-number { color: var(--sage-deep); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; }
-.event-card h3 { font-size: clamp(2rem, 8cqi, 3rem); }
-.scene-lanterns { border-top: 3px solid #78834d; }
-.scene-candlelight { border-top: 3px solid #d6a127; }
-.scene-fire { border-top: 3px solid #8d3530; }
+.events { max-width: 620px; gap: clamp(2rem, 6vw, 3.5rem); }
+.event-card { display: block; background: #fcf6eb; border: 1px solid #d7c49f; border-radius: 3px; box-shadow: 0 12px 35px rgb(101 84 67 / 0.08); }
+.event-portrait { position: relative; }
+.event-portrait > img { display: block; width: 100%; height: auto; aspect-ratio: 2 / 3; object-fit: contain; }
+.event-content { position: absolute; inset: 21% 13% 16%; width: auto; max-width: none; padding: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+.event-number { color: #685337; font: 500 clamp(8px, 1.8cqi, 11px)/1.5 var(--font-body); letter-spacing: 0.12em; text-transform: uppercase; }
+.event-card h3 { max-width: 100%; margin: 0.25em 0 0; color: #633c2d; font: 500 clamp(27px, 8.5cqi, 52px)/1.05 var(--font-display); letter-spacing: -0.025em; }
+.event-subtitle { margin: 0.3em 0 0.7em; color: #76563c; font: italic 400 clamp(15px, 4cqi, 26px)/1.2 var(--font-display); text-wrap: balance; }
+.event-details { width: 100%; gap: 0.3em; padding: 0.7em 0; color: #4c3d31; font: 400 clamp(11px, 2.5cqi, 15px)/1.55 var(--font-body); }
+.event-details strong { font-weight: 600; }
+.event-venue { margin-top: 0.3em; font-family: var(--font-display); font-weight: 600; font-size: 1.35em; line-height: 1.2; }
+.event-address { max-width: 95%; margin-inline: auto; text-wrap: balance; }
+.event-actions { width: auto; margin-top: clamp(0.5rem, 2.5cqi, 1.1rem); }
+.event-actions .button { min-height: 36px; padding: 0.65em 1.1em; font-size: clamp(9px, 2cqi, 12px); letter-spacing: 0.09em; background: rgb(255 251 243 / 0.8); border-color: #9c7b42; color: #5f452c; }
+.event-actions .button svg { width: 13px; height: 13px; }
+.event-line { max-width: 440px; padding: 0 1.25rem; margin: 1.3rem auto 1.6rem; color: #6c5949; font: italic 400 clamp(18px, 4.5cqi, 24px)/1.45 var(--font-display); }
+.botanical-rule { width: 150px; gap: 14px; margin-top: 0.75rem; }
+.botanical-rule svg { width: 25px; height: 25px; flex-shrink: 0; }
+.family-section .monogram, .celebrations-monogram, footer .monogram { height: auto; aspect-ratio: 1; }
+.countdown-section { background: radial-gradient(ellipse at center, #fffaf0, var(--ivory)); }
+.family-section p { font-size: clamp(1.5rem, 5vw, 2.35rem); line-height: 1.45; }
+.section-heading h2 { font-weight: 400; line-height: 1.2; }
+.venue-content > p, .parent-lines { font-family: var(--font-body); font-size: clamp(0.8rem, 2.4vw, 0.95rem); line-height: 1.7; }
 .venue-section::before { background-image: url('/assets/shristi-harsh-celebration.png'); opacity: 0.18; filter: none; }
 .family-contacts { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem 1.5rem; margin-top: 1.5rem; font-size: 0.9rem; }
 .family-contacts span, .family-contacts small { flex-basis: 100%; }

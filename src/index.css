@@ -1552,3 +1552,92 @@ footer p {
 .family-contacts span, .family-contacts small { flex-basis: 100%; }
 .family-contacts a { color: var(--taupe); text-underline-offset: 4px; }
 .family-contacts small { font-size: 0.75rem; }
+
+/* A monogram seal opens the invitation. */
+.invitation-opening {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  min-height: 100svh;
+  padding: max(2rem, env(safe-area-inset-top)) 1rem max(2rem, env(safe-area-inset-bottom));
+  isolation: isolate;
+  overflow: auto;
+  color: var(--taupe);
+  background: radial-gradient(ellipse at 50% 43%, #fffaf0 8%, #f4e8d4 65%, #e7d1ae);
+}
+.opening-floral-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  opacity: 0.16;
+  background: url('/assets/wedding-floral-arch-v2.png') center / cover no-repeat;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+.opening-stationery-frame {
+  position: absolute;
+  inset: clamp(1rem, 4vw, 3rem);
+  border: 1px solid rgb(171 133 46 / 0.45);
+  outline: 1px solid rgb(171 133 46 / 0.2);
+  outline-offset: -7px;
+  border-radius: 48% 48% 3px 3px / 25% 25% 3px 3px;
+  pointer-events: none;
+}
+.opening-welcome {
+  position: relative;
+  width: min(100%, 690px);
+  padding: 2rem 0;
+  text-align: center;
+}
+.opening-flower { width: 30px; height: 30px; margin: 0 auto 1.75rem; color: var(--gold); }
+.opening-kicker { padding-inline: 1.5rem; font: 600 clamp(9px, 1.6vw, 11px)/1.8 var(--font-body); letter-spacing: 0.22em; text-transform: uppercase; text-wrap: balance; }
+.opening-names { display: flex; justify-content: center; align-items: center; gap: clamp(0.35rem, 2vw, 1.3rem); margin: 1.5rem 0 1.75rem; font: 400 clamp(1.75rem, 6.8vw, 4.5rem)/1.1 var(--font-display); letter-spacing: -0.035em; }
+.opening-names > span { flex: 1; }
+.opening-names > span:first-child { text-align: right; }
+.opening-names > span:last-child { text-align: left; }
+.opening-logo-button {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: clamp(88px, 20vw, 148px);
+  aspect-ratio: 1;
+  padding: 7px;
+  border: 1px solid rgb(171 133 46 / 0.6);
+  border-radius: 50%;
+  background: #f6f0e5;
+  box-shadow: 0 0 0 6px rgb(171 133 46 / 0.06), 0 14px 40px rgb(117 44 39 / 0.12);
+}
+.opening-logo-button img { position: relative; display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: contain; border-radius: 50%; mix-blend-mode: multiply; }
+.opening-logo-glow { position: absolute; inset: -9px; border: 1px solid rgb(171 133 46 / 0.3); border-radius: 50%; animation: seal-breathe 3s ease-in-out infinite; }
+.opening-logo-button:focus-visible { outline-color: var(--taupe); outline-offset: 12px; }
+.opening-instruction { font: 600 11px/1.8 var(--font-body); letter-spacing: 0.2em; text-transform: uppercase; }
+.opening-whisper { margin-top: 0.4rem; color: #7b6750; font: 500 9px/1.8 var(--font-body); letter-spacing: 0.16em; text-transform: uppercase; }
+.opening-date-line { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 3rem; color: #745b39; font: 400 1.1rem/1.5 var(--font-display); }
+.opening-date-line span { width: 30px; height: 1px; background: var(--gold-light); }
+.opening-location { margin-top: 0.4rem; color: #7b6750; font: 500 9px/1.8 var(--font-body); letter-spacing: 0.22em; text-transform: uppercase; }
+.opening-sparkles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.opening-sparkles i { position: absolute; width: 4px; height: 7px; border-radius: 80% 10% 80% 10%; background: var(--gold); opacity: 0.25; animation: seal-petal 7s ease-in-out infinite alternate; }
+.opening-sparkles i:nth-child(1) { left: 12%; top: 25%; }
+.opening-sparkles i:nth-child(2) { left: 24%; top: 70%; animation-delay: -2s; }
+.opening-sparkles i:nth-child(3) { left: 80%; top: 22%; animation-delay: -4s; }
+.opening-sparkles i:nth-child(4) { left: 87%; top: 68%; animation-delay: -1s; }
+.opening-sparkles i:nth-child(5) { left: 42%; top: 15%; animation-delay: -5s; }
+.opening-sparkles i:nth-child(6) { left: 65%; top: 82%; animation-delay: -3s; }
+.opening-sparkles i:nth-child(7) { left: 8%; top: 48%; animation-delay: -6s; }
+.opening-sparkles i:nth-child(8) { left: 92%; top: 43%; animation-delay: -2s; }
+.hero h1:focus { outline: none; }
+@keyframes seal-breathe { 0%, 100% { transform: scale(1); opacity: 0.35; } 50% { transform: scale(1.1); opacity: 0.8; } }
+@keyframes seal-petal { from { transform: translateY(-10px) rotate(-20deg); opacity: 0.15; } to { transform: translateY(14px) rotate(65deg); opacity: 0.45; } }
+@media (prefers-reduced-motion: reduce) {
+  .opening-logo-glow, .opening-sparkles i { animation: none; }
+}
+@media (max-height: 500px) and (orientation: landscape) {
+  .opening-welcome { padding-block: 0.5rem; }
+  .opening-flower { display: none; }
+  .opening-names { margin-block: 0.75rem; }
+  .opening-logo-button { width: 80px; }
+  .opening-date-line { margin-top: 1rem; }
+}

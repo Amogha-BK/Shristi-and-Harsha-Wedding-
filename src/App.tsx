@@ -13,7 +13,7 @@ import {
   VolumeX,
   X,
 } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { Celebration, invitationConfig as config } from "./invitationConfig";
 
 const navItems = [
@@ -31,6 +31,50 @@ function Monogram({ className = "" }: { className?: string }) {
       src={config.monogram}
       alt="S and H wedding monogram for Shristi and Harsh"
     />
+  );
+}
+
+function InvitationOpening({ onOpen }: { onOpen: () => void }) {
+  const reducedMotion = useReducedMotion();
+  return (
+    <motion.section
+      className="invitation-opening"
+      aria-label="Open Shristi and Harsh’s wedding invitation"
+      initial={{ opacity: 1 }}
+      exit={{ opacity: 0, scale: reducedMotion ? 1 : 1.04 }}
+      transition={{ duration: reducedMotion ? 0.1 : 0.85, ease: "easeInOut" }}
+    >
+      <div className="opening-floral-backdrop" aria-hidden="true" />
+      <div className="paper-grain" aria-hidden="true" />
+      <div className="opening-stationery-frame" aria-hidden="true" />
+      <div className="opening-sparkles" aria-hidden="true">
+        {Array.from({ length: 8 }, (_, index) => <i key={index} />)}
+      </div>
+      <div className="opening-welcome">
+        <Flower2 className="opening-flower" strokeWidth={1} aria-hidden="true" />
+        <p className="opening-kicker">A celebration of love &amp; togetherness</p>
+        <h1 className="opening-names">
+          <span>{config.couple.first}</span>
+          <motion.button
+            type="button"
+            className="opening-logo-button focus-ring"
+            onClick={onOpen}
+            autoFocus
+            aria-label="Open Shristi and Harsh’s wedding invitation"
+            whileHover={reducedMotion ? undefined : { scale: 1.06 }}
+            whileTap={reducedMotion ? undefined : { scale: 0.95 }}
+          >
+            <span className="opening-logo-glow" aria-hidden="true" />
+            <img src={config.monogram} alt="" width={180} height={180} fetchPriority="high" />
+          </motion.button>
+          <span>{config.couple.second}</span>
+        </h1>
+        <p className="opening-instruction">Tap the monogram</p>
+        <p className="opening-whisper">to open our invitation</p>
+        <div className="opening-date-line"><span />10 December 2026<span /></div>
+        <p className="opening-location">Indirapuram</p>
+      </div>
+    </motion.section>
   );
 }
 
@@ -104,7 +148,7 @@ function MusicControl({ canPlay }: { canPlay: boolean }) {
         <audio
           ref={audio}
           src={config.optional.musicUrl}
-          autoPlay
+          autoPlay={canPlay}
           preload="auto"
           loop
           onPlay={() => setPlaying(true)}
@@ -515,6 +559,21 @@ function RSVP() {
 }
 
 export default function App() {
+  const [opened, setOpened] = useState(false);
+  const invitationHeading = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    if (opened) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = previousOverflow; };
+  }, [opened]);
+
+  const openInvitation = () => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+    setOpened(true);
+  };
+
   const parentsPresent =
     Boolean(config.couple.firstParents) || Boolean(config.couple.secondParents);
   const optionalDetails = Object.entries({
@@ -524,9 +583,13 @@ export default function App() {
   }).filter(([, value]) => Boolean(value));
 
   return (
-    <div className="invitation">
+    <>
+    <AnimatePresence onExitComplete={() => invitationHeading.current?.focus({ preventScroll: true })}>
+      {!opened && <InvitationOpening key="opening" onOpen={openInvitation} />}
+    </AnimatePresence>
+    <div className="invitation" inert={!opened} aria-hidden={!opened}>
       <Navigation />
-      <MusicControl canPlay />
+      <MusicControl canPlay={opened} />
       <main>
         <section className="hero" id="our-wedding">
           <div className="paper-grain" />
@@ -534,7 +597,7 @@ export default function App() {
             <p className="ganesh-invocation">॥ Shri Ganeshaya Namah ॥</p>
             <Monogram className="hero-monogram" />
             <p className="eyebrow">The wedding celebrations of</p>
-            <h1>
+            <h1 ref={invitationHeading} tabIndex={-1}>
               {config.couple.first}
               <span>&</span>
               {config.couple.second}
@@ -631,5 +694,6 @@ export default function App() {
         </footer>
       </main>
     </div>
+    </>
   );
 }

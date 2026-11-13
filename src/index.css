@@ -1525,6 +1525,20 @@ footer p {
 .family-section .grandparents-line { font-size: 1.25rem; margin-top: 1.5rem; }
 .family-section .family-blessing { font-size: 1.15rem; font-style: italic; margin-top: 1.5rem; }
 .family-section .family-memory { max-width: 540px; font-size: clamp(1.1rem, 3.5vw, 1.6rem); color: var(--sage-deep); }
+.family-section .family-invocation { margin: 0 0 1rem; font-size: 1.15rem; color: var(--taupe); }
+.invitation-families { width: 100%; display: grid; grid-template-columns: 1fr auto 1fr; gap: 1rem; align-items: start; margin: 1.5rem 0 0.5rem; }
+.invitation-families h2 { color: var(--taupe); font: 400 clamp(2.5rem, 8vw, 3.8rem)/1.2 var(--font-script); }
+.family-section .invitation-families p { margin: 0.75rem 0; font: 400 clamp(0.85rem, 2.5vw, 1rem)/1.7 var(--font-body); text-wrap: balance; }
+.family-weds { padding-top: 1rem; color: var(--gold); font: italic 400 1.2rem/1.5 var(--font-display); }
+.invitation-regards { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; padding-block: 1.5rem; margin: 1rem 0; border-top: 1px solid var(--gold-light); }
+.invitation-regards h3 { color: var(--taupe); font: italic 500 1.2rem/1.5 var(--font-display); }
+.family-section .invitation-regards p { margin: 0.5rem 0 0; font: 400 0.9rem/1.7 var(--font-body); }
+.programme-invocation { margin: 0 auto 1.5rem; text-align: center; color: var(--taupe); font: 400 1.1rem/1.5 var(--font-display); }
+@media (max-width: 420px) {
+  .invitation-families { grid-template-columns: 1fr; gap: 0.5rem; }
+  .family-weds { padding-top: 0; }
+  .invitation-regards { grid-template-columns: 1fr; }
+}
 .countdown-target { margin: -0.25rem 0 1.5rem; padding-inline: 0.5rem; color: var(--taupe); font: 500 clamp(0.7rem, 2vw, 0.85rem)/1.8 var(--font-body); text-align: center; text-wrap: balance; }
 .events { max-width: 620px; gap: clamp(2rem, 6vw, 3.5rem); }
 .event-card { display: block; background: #fcf6eb; border: 1px solid #d7c49f; border-radius: 3px; box-shadow: 0 12px 35px rgb(101 84 67 / 0.08); }

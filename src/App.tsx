@@ -678,11 +678,26 @@ export default function App() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.5 }}
           >
-            <span className="script-accent">With joyful hearts</span>
+            <p className="ganesh-invocation family-invocation">॥ Shri Ganeshaya Namah ॥</p>
             <p className="family-memory">{config.memorialLine}</p>
             <p>{config.invitationLine}</p>
-            <p className="grandparents-line">Harsh, grandson of Smt. Kamla Devi &amp; Sh. Pramveer Singh</p>
+            <div className="invitation-families" aria-label="The couple and their families">
+              <div>
+                <h2>{config.couple.first}</h2>
+                <p>{config.couple.brideParents}</p>
+              </div>
+              <span className="family-weds">weds</span>
+              <div>
+                <h2>{config.couple.second}</h2>
+                <p>{config.couple.groomGrandparents}</p>
+                <p>{config.couple.groomParents}</p>
+              </div>
+            </div>
             <p className="family-blessing">{config.blessingLine}</p>
+            <div className="invitation-regards">
+              <div><h3>R.S.V.P.</h3><p>{config.rsvp}</p></div>
+              <div><h3>With best wishes from:</h3><p>{config.wishesFrom}</p></div>
+            </div>
             <Monogram />
           </motion.div>
         </section>
@@ -694,6 +709,7 @@ export default function App() {
 
         <section className="celebrations-section" id="celebrations">
           <Monogram className="celebrations-monogram" />
+          <p className="programme-invocation">॥ Shri Ganeshaya Namah ॥</p>
           <SectionHeading eyebrow="9–10 December 2026">Three celebrations, a lifetime of love</SectionHeading>
           <div className="events">
             {config.celebrations.map((event, index) => (
@@ -733,14 +749,12 @@ export default function App() {
         <footer id="contact">
           <div className="closing-copy">
             <Monogram />
-            <span>With best wishes from:</span>
+            <span>From:</span>
             <p className="closing-message">
-              All Relatives &amp; Friends
+              {config.hosts}
             </p>
-            <p>From: Mrs. &amp; Mr. Jagat Singh Chauhan</p>
             <p>{config.homeAddress}</p>
             <div className="family-contacts">
-              <span>R.S.V.P. · Smt. Asha Devi &amp; Sh. Jagat Singh Chauhan</span>
               <div className="contact-numbers" aria-label="Family contact numbers">
                 <span className="contact-label">Contact:</span>
                 {config.contacts.map((number, index) => (

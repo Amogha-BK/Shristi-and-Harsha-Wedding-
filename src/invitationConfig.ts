@@ -22,18 +22,26 @@ const weddingVenue = {
 const weddingMap = maps(`${weddingVenue.name}, ${weddingVenue.address}`);
 const homeAddress = "26 C, Heritage Divine, Gyan Khand 2, Indirapuram, Ghaziabad, Uttar Pradesh";
 const mehndiAddress = "Golden Rivaah Party Hall, Gyan Khand-2, Indirapuram, Ghaziabad, Uttar Pradesh";
+const brideParents = "D/O Smt. Asha Devi & Sh. Jagat Singh Chauhan";
+const groomParents = "S/O Smt. Renu Chaudhary & Sh. Dhanveer Singh";
 export const invitationConfig = {
   couple: {
     first: "Shristi",
     second: "Harsh",
-    firstParents: "Shristi · D/O Smt. Asha Devi & Sh. Jagat Singh Chauhan",
-    secondParents: "Harsh · S/O Smt. Renu Chaudhary & Sh. Dhanveer Singh",
+    firstParents: `Shristi · ${brideParents}`,
+    secondParents: `Harsh · ${groomParents}`,
+    brideParents,
+    groomParents,
+    groomGrandparents: "Grandson of Smt. Kamla Devi & Sh. Pramveer Singh",
   },
   weddingLabel: "10 December 2026 · Indirapuram",
   memorialLine: "With the blessings and in loving memory of Late Smt. Jagdai Devi & Late Veer Singh Chauhan",
   invitationLine: "Shristi & Harsh cordially invite you to grace the occasion of their Wedding Ceremony with your presence and blessings.",
   blessingLine: "We look forward to your gracious presence and blessings on this joyous occasion.",
   homeAddress,
+  hosts: "Mrs. & Mr. Jagat Singh Chauhan",
+  rsvp: "Smt. Asha Devi & Sh. Jagat Singh Chauhan",
+  wishesFrom: "All Relatives & Friends",
   monogram: "/assets/shristi-harsh-monogram.png",
   artwork: "/assets/shristi-harsh-celebration.png",
   venue: { ...weddingVenue, mapUrl: weddingMap },

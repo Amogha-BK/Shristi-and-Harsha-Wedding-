@@ -27,7 +27,7 @@ function Monogram({ className = "" }: { className?: string }) {
     <img
       className={`monogram ${className}`}
       src={config.monogram}
-      alt="A and A monogram with a botanical sprig"
+      alt="S and H wedding monogram for Shristi and Harsh"
     />
   );
 }
@@ -147,7 +147,7 @@ function Navigation() {
   return (
     <nav className="site-nav" aria-label="Invitation navigation">
       <a className="nav-mark focus-ring" href="#our-wedding" aria-label="Home">
-        A <span>&</span> A
+        S <span>&</span> H
       </a>
       <div className={`nav-links ${open ? "nav-links-open" : ""}`}>
         {navItems.map(([label, id]) => (
@@ -246,6 +246,7 @@ function EventCard({ event, index }: { event: Celebration; index: number }) {
       <img src={event.image} alt="" loading="lazy" />
       <div className="event-wash" />
       <div className="event-content">
+        <span className="event-number">Celebration {String(index + 1).padStart(2, "0")} · {event.shortName}</span>
         <h3>{event.title}</h3>
         <p className="event-line">{event.supportingLine}</p>
         <div className="event-details">
@@ -253,6 +254,7 @@ function EventCard({ event, index }: { event: Celebration; index: number }) {
           <span>{event.timeLabel}</span>
           {event.phereTime && <span>Phere: {event.phereTime}</span>}
           <span>{event.venue}</span>
+          <span>{event.address}</span>
         </div>
         <div className="event-actions">
           <a
@@ -304,7 +306,7 @@ function RSVP() {
   const buildMessage = () => {
     const attending = data.attendance === "yes";
     const lines = [
-      "RSVP for Amit & Ankita",
+      `RSVP for ${config.couple.first} & ${config.couple.second}`,
       "",
       `Name: ${data.name.trim()}`,
       `Attendance: ${attending ? "Joyfully attending" : "Sending our wishes"}`,
@@ -453,7 +455,7 @@ function RSVP() {
         </AnimatePresence>
         <label className="field">
           <span>
-            Message for Amit & Ankita <em>Optional</em>
+            Message for Shristi &amp; Harsh <em>Optional</em>
           </span>
           <textarea
             rows={4}
@@ -525,6 +527,7 @@ export default function App() {
         <section className="hero" id="our-wedding">
           <div className="paper-grain" />
           <div className="hero-inner">
+            <p className="ganesh-invocation">॥ Shri Ganeshaya Namah ॥</p>
             <Monogram className="hero-monogram" />
             <p className="eyebrow">The wedding celebrations of</p>
             <h1>
@@ -541,7 +544,7 @@ export default function App() {
             <div className="hero-date">{config.weddingLabel}</div>
           </div>
           <div className="hero-artwork" aria-hidden="true">
-            <img src="/assets/opening-artwork-v1.jpg" alt="" fetchPriority="high" />
+            <img src={config.artwork} alt="" fetchPriority="high" />
           </div>
         </section>
 
@@ -554,6 +557,8 @@ export default function App() {
           >
             <span className="script-accent">With joyful hearts</span>
             <p>{config.invitationLine}</p>
+            <p className="grandparents-line">Harsh, grandson of Smt. Kamla Devi &amp; Sh. Pramveer Singh</p>
+            <p className="family-blessing">Let us shower the couple with blessings as they begin their forever.</p>
             <Monogram />
           </motion.div>
         </section>
@@ -565,7 +570,7 @@ export default function App() {
 
         <section className="celebrations-section" id="celebrations">
           <Monogram className="celebrations-monogram" />
-          <SectionHeading>A little scroll through our forever</SectionHeading>
+          <SectionHeading eyebrow="9–10 December 2026">Three celebrations, a lifetime of love</SectionHeading>
           <div className="events">
             {config.celebrations.map((event, index) => (
               <EventCard key={event.id} event={event} index={index} />
@@ -575,7 +580,7 @@ export default function App() {
 
         <section className="venue-section" id="venue">
           <div className="venue-content">
-            <SectionHeading eyebrow="Where we gather">The venue</SectionHeading>
+            <SectionHeading eyebrow="Where we gather for the wedding">The wedding venue</SectionHeading>
             <MapPin className="venue-pin" />
             <h3>{config.venue.name}</h3>
             <p>{config.venue.address}</p>
@@ -606,9 +611,16 @@ export default function App() {
             <Monogram />
             <span>With love,</span>
             <p className="closing-message">
-              With hearts full of joy and love, the Wadhwani &amp; Bagzai families request the
-              pleasure of your presence as they celebrate the beginning of a beautiful forever.
+              Mrs. &amp; Mr. Jagat Singh Chauhan, together with all relatives and friends,
+              invite you to bless Shristi &amp; Harsh as they begin a beautiful forever.
             </p>
+            <p>26 C, Heritage Divine, Gyan Khand 2, Indirapuram</p>
+            <div className="family-contacts">
+              <span>R.S.V.P. · Smt. Asha Devi &amp; Sh. Jagat Singh Chauhan</span>
+              <a className="focus-ring" href="tel:+919582317003">95823 17003</a>
+              <a className="focus-ring" href="tel:+919899012987">98990 12987</a>
+              <small>Additional number as printed: {config.contacts[0]}</small>
+            </div>
             <div className="closing-rule" aria-hidden="true" />
             <p>Our celebration is complete with you.</p>
           </div>

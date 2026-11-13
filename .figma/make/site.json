@@ -1,11 +1,11 @@
 {
-  "title": "Amit and Ankita wedding",
-  "description": "Amit and Ankita’s interactive wedding invitation shares celebration details, venue directions, calendar downloads, a live countdown and WhatsApp RSVP in one place.",
-  "robots": {
-    "index": false
-  },
-  "accessibility": {
-    "addBypassLinks": false,
-    "ignoreReducedMotion": false
-  }
+    "title":  "Shristi \u0026 Harsh | Wedding Celebrations",
+    "description":  "Join Shristi and Harsh for Mehndi, Haldi Hath and their wedding on 9–10 December 2026 in Indirapuram. Celebration times, family details and venue directions.",
+    "robots":  {
+                   "index":  false
+               },
+    "accessibility":  {
+                          "addBypassLinks":  false,
+                          "ignoreReducedMotion":  false
+                      }
 }
